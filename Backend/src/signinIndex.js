@@ -108,21 +108,41 @@
 
 
 const express = require('express');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const path = require('path');
+const collection = require('./signinConfig');
 
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.set('view engine', 'ejs');
+
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
-    res.render("signin");
+    res.render("signup");
 });
 
 
 app.get("/signup", (req, res) => {
     res.render("signup");
 });
+
+
+app.post("/signup", async (req, res) => {
+
+    const data = {
+        username: req.body.username,
+        password: req.body.password
+    }
+
+    const userdata = await collection.insertMany(data);
+    console.log("userdata");
+    
+})
 
 
 
