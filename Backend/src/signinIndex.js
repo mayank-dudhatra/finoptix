@@ -15,14 +15,14 @@
 
 // let db, signin;
 
-// // Connect to MongoDB and initialize collections
+// // Connect to MongoDB and initialize signinss
 // async function initializeDatabase() {
 //     try {
 //         const client = await MongoClient.connect(uri, { useUnifiedTopology: true });
 //         console.log("Connected to MongoDB");
 
 //         db = client.db(dbName);
-//         signin = db.collection("signin"); // Initialize signin collection
+//         signin = db.signins("signin"); // Initialize signin signins
 
 //         // Start server after successful DB connection
 //         app.listen(port, () => {
@@ -107,46 +107,149 @@
 
 
 
+
+
+// const express = require('express');
+// const { MongoClient } = require('mongodb');
+// const bcrypt = require('bcrypt');
+// const path = require('path');
+// const signins = require('./signinConfig');
+
+
+// const app = express();
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+
+// app.set('view engine', 'ejs');
+
+// app.use(express.static("public"));
+
+// app.get("/", (req, res) => {
+//     res.render("signup");
+// });
+
+
+// app.get("/signup", (req, res) => {
+//     res.render("signup");
+// });
+
+
+// app.post("/signup", async (req, res) => {
+
+//     console.log(req.body);
+    
+
+//     const data = {
+//         username: req.body.username,
+//         password: req.body.password
+//     }
+
+//     const userdata = await signins.insertMany(data);
+//     console.log(userdata);
+    
+// })
+
+
+
+// const port = 3002;
+// app.listen(port, () => {
+//     console.log(`Server running in port ${port}`);
+// })
+
+
+
+
+
+
 const express = require('express');
+const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 const path = require('path');
-const collection = require('./signinConfig');
-
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 app.set('view engine', 'ejs');
-
 app.use(express.static("public"));
 
+// MongoDB Connection Setup
+const url = 'mongodb://127.0.0.1:27017';
+const client = new MongoClient(url);
+const dbName = 'Finoptix';
+const collectionName = 'signins';
+
+async function connect() {
+    try {
+        if (!client.topology || !client.topology.isConnected()) {
+            await client.connect();
+            console.log("Database Connected");
+        }
+        return client.db(dbName);
+    } catch (err) {
+        console.error("Database connection error:", err);
+        throw err;
+    }
+}
+
+async function getCollection() {
+    const db = await connect();
+    return db.collection(collectionName);
+}
+
+// Routes
 app.get("/", (req, res) => {
     res.render("signup");
 });
-
 
 app.get("/signup", (req, res) => {
     res.render("signup");
 });
 
-
 app.post("/signup", async (req, res) => {
+    try {
+        console.log("Received signup request:", req.body);
 
-    const data = {
-        username: req.body.username,
-        password: req.body.password
+        const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(400).send("Username and password are required.");
+        }
+
+        const collection = await getCollection();
+
+        // Check if the username already exists
+        const existingUser = await collection.findOne({ username });
+        if (existingUser) {
+            return res.status(400).send("Username already exists.");
+        }
+
+        // Hash password before storing
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Insert user into database
+        const result = await collection.insertOne({
+            username,
+            password: hashedPassword
+        });
+
+        console.log("User inserted:", result.insertedId);
+        res.status(201).send("User signed up successfully!");
+
+    } catch (error) {
+        console.error("Error during signup:", error);
+        res.status(500).send("Internal Server Error");
     }
+});
 
-    const userdata = await collection.insertMany(data);
-    console.log("userdata");
-    
-})
-
-
-
+// Start the server
 const port = 3002;
-app.listen(port, () => {
-    console.log(`Server running in port ${port}`);
-})
+app.listen(port, async () => {
+    try {
+        await connect(); // Ensure database is connected when the server starts
+        console.log(`Server running on port ${port}`);
+    } catch (err) {
+        console.error("Failed to start server due to database connection issue:", err);
+    }
+});
