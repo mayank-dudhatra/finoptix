@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finoptix/SignIn</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+   
+    <div class="form-container">
+        <h2>SignIn</h2>
+        <form action="/signin" method="post">
+            <div class="form-group">
+                <label for="username">Username: </label>
+                <input type="text" name="username" id="" placeholder="Enter Your Name" required autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input type="password" name="password" id="" placeholder="Enter your Password" required>
+            </div>
+
+            <button type="submit" class="submit-btn">SignIn</button>
+        </form>
+
+        <p>Don't have an account? <a href="/signup">SignUp</a></p>
+
+    </div>
+
+</body>
+</html>
