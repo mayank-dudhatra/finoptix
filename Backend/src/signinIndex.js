@@ -175,7 +175,7 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
 // MongoDB Connection Setup
-const url = 'mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/';
+const url = "mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/";
 const client = new MongoClient(url);
 const dbName = 'Finoptix';
 const collectionName = 'signin';

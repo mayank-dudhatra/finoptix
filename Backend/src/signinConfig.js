@@ -88,7 +88,7 @@ const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 
 // Connection URL
-const url = 'mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/';
+const url = "mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/";
 const client = new MongoClient(url);
 const dbName = 'Finoptix';
 const collectionName = 'signin';

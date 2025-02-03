@@ -5,6 +5,7 @@ const app = express();
 const port = 3002;
 
 // MongoDB connection details
+// const uri = "mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/";
 const uri = "mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/";
 const dbName = "Finoptix"; // Ensure your MongoDB database is named appropriately
 
