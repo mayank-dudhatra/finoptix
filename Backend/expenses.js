@@ -5,7 +5,7 @@ const app = express();
 const port = 3002;
 
 // MongoDB connection details
-const uri = "mongodb://127.0.0.1:27017";
+const uri = "mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/";
 const dbName = "Finoptix"; // Ensure your MongoDB database is named appropriately
 
 // Middleware
@@ -97,16 +97,24 @@ app.post('/expenses', async (req, res) => {
 });
 
 // PUT: Update a user completely
-app.put('/expenses/:expenseId', async (req, res) => {
+app.put('/expenses/:username', async (req, res) => {
     try {
-        const expenseId = req.params.expenseId;
-        const result = await expenses.updateOne({ _id: expenseId }, { $set: req.body });
+        const username = req.params.username; // Get username from URL
+        const updates = req.body; // Get update fields from request body
 
-        res.status(result.modifiedCount ? 200 : 404).send(result.modifiedCount ? "User updated" : "No changes made");
+        const result = await expenses.updateOne(
+            { user: username }, // Find expense by username
+            { $set: updates } // Apply full updates
+        );
+
+        res.status(result.modifiedCount ? 200 : 404).send(
+            result.modifiedCount ? "User expenses updated" : "No changes made"
+        );
     } catch (err) {
         res.status(500).send("Error: " + err.message);
     }
 });
+
 
 
 app.put('/expenses/:expenseId/skills', async (req, res) => {
