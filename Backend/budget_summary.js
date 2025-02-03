@@ -5,14 +5,13 @@ const app = express();
 const port = 3002;
 
 // MongoDB connection details
-// const uri = "mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/";
 const uri = "mongodb+srv://test1:kanishka123@cluster0.2lxux.mongodb.net/";
 const dbName = "Finoptix"; // Ensure your MongoDB database is named appropriately
 
 // Middleware
 app.use(express.json());
 
-let db, users;
+let db, budget_summary;
 
 // Connect to MongoDB and initialize collections
 async function initializeDatabase() {
@@ -21,7 +20,7 @@ async function initializeDatabase() {
         console.log("Connected to MongoDB");
 
         db = client.db(dbName);
-        users = db.collection("users"); // Initialize users collection
+        budget_summary = db.collection("budget_summary"); // Initialize users collection
 
         // Start server after successful DB connection
         app.listen(port, () => {
@@ -39,30 +38,15 @@ initializeDatabase();
 // Routes
 
 // GET: List all users
-app.get('/users', async (req, res) => {
+app.get('/budget_summary', async (req, res) => {
     try {
-        const allUsers = await users.find().toArray();
-        res.status(200).json(allUsers);
+        const allSummaries = await budgetSummaries.find().toArray(); // Ensure collection name is correct
+        res.status(200).json(allSummaries);
     } catch (err) {
-        res.status(500).send("Error fetching users: " + err.message);
+        res.status(500).send("Error fetching budget summaries: " + err.message);
     }
 });
 
-// GET: Get user details by userId
-app.get('/users/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const user = await users.findOne({ userId });
-
-        if (!user) {
-            return res.status(404).send("User not found");
-        }
-
-        res.status(200).json(user);
-    } catch (err) {
-        res.status(500).send("Error fetching user details: " + err.message);
-    }
-});
 
 
 // app.get('/users/:userId', async (req, res) => {
@@ -87,27 +71,32 @@ app.get('/users/:userId', async (req, res) => {
 // });
 
 // POST: Add a new user
-app.post('/users', async (req, res) => {
+app.post('/budget_summary', async (req, res) => {
     try {
-        const newUser = req.body;
-        const result = await users.insertOne(newUser);
-        res.status(201).send(`User added with ID: ${result.insertedId}`);
+        const newSummary = req.body;
+        const result = await budgetSummaries.insertOne(newSummary); // Use the correct collection
+        res.status(201).send(`Budget summary added with ID: ${result.insertedId}`);
     } catch (err) {
-        res.status(500).send("Error adding user: " + err.message);
+        res.status(500).send("Error adding budget summary: " + err.message);
     }
 });
 
-// PUT: Update a user completely
-app.put('/users/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const result = await users.updateOne({ _id: userId }, { $set: req.body });
 
-        res.status(result.modifiedCount ? 200 : 404).send(result.modifiedCount ? "User updated" : "No changes made");
+// PUT: Update a user completely
+app.put('/budget_summary/:budget_summaryId', async (req, res) => {
+    try {
+        const budgetSummaryId = req.params.budget_summaryId; // Use budget_summaryId from params
+        const result = await budgetSummaries.updateOne(
+            { _id: new ObjectId(budgetSummaryId) }, // Ensure the ID is valid and properly formatted
+            { $set: req.body }
+        );
+
+        res.status(result.modifiedCount ? 200 : 404).send(result.modifiedCount ? "Budget summary updated" : "No changes made");
     } catch (err) {
         res.status(500).send("Error: " + err.message);
     }
 });
+
 
 
 app.put('/users/:userId/skills', async (req, res) => {
