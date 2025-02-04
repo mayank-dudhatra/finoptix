@@ -20,7 +20,7 @@ async function initializeDatabase() {
         console.log("Connected to MongoDB");
 
         db = client.db(dbName);
-        budget_summary = db.collection("budget_summary"); // Initialize users collection
+        budget_summary = db.collection("budget_summary"); // Initialize budget_summary collection
 
         // Start server after successful DB connection
         app.listen(port, () => {
@@ -37,140 +37,82 @@ initializeDatabase();
 
 // Routes
 
-// GET: List all users
+// GET: List all budget_summary
 app.get('/budget_summary', async (req, res) => {
     try {
-        const allSummaries = await budgetSummaries.find().toArray(); // Ensure collection name is correct
-        res.status(200).json(allSummaries);
+        const allBudget_summary = await budget_summary.find({}).toArray();
+        res.status(200).json(allBudget_summary);
     } catch (err) {
-        res.status(500).send("Error fetching budget summaries: " + err.message);
+        console.error("Database error:", err);
+        res.status(500).json({ error: "Error fetching budget summary: " + err.message });
     }
 });
 
+// GET: Get user details by budget_summary
+app.get('/budget_summary/:user', async (req, res) => {
+    try {
+        const user = req.params.user;
+        const userBudget_summary = await budget_summary.findOne({ user });
 
+        if (!userBudget_summary) {
+            return res.status(404).json({ error: "Budget Summary not found for this user" });
+        }
 
-// app.get('/users/:userId', async (req, res) => {
-//     try {
-//         const userId = req.params.userId;
+        res.status(200).json(userBudget_summary);
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).json({ error: "Error fetching budget summary details: " + err.message });
+    }
+});
 
-//         // Query the database for the user with only 'profileViews' field
-//         const user = await users.findOne(
-//             { userId }, // Match userId
-//             { projection: { profileViews: 1, _id: 0 } } // Include profileViews, exclude _id
-//         );
-
-//         if (!user) {
-//             return res.status(404).send("User not found");
-//         }
-
-//         // Send the 'profileViews' as the response
-//         res.status(200).json(user);
-//     } catch (err) {
-//         res.status(500).send("Error fetching user details: " + err.message);
-//     }
-// });
-
-// POST: Add a new user
+// POST: Add a new budget_summary
 app.post('/budget_summary', async (req, res) => {
     try {
-        const newSummary = req.body;
-        const result = await budgetSummaries.insertOne(newSummary); // Use the correct collection
-        res.status(201).send(`Budget summary added with ID: ${result.insertedId}`);
+        const newBudget_summary = req.body;
+        const result = await budget_summary.insertOne(newBudget_summary);
+        res.status(201).json({ message: `Budget Summary added with ID: ${result.insertedId}` });
     } catch (err) {
-        res.status(500).send("Error adding budget summary: " + err.message);
+        console.error("Database error:", err);
+        res.status(500).json({ error: "Error adding budget summary: " + err.message });
     }
 });
 
-
-// PUT: Update a user completely
-app.put('/budget_summary/:budget_summaryId', async (req, res) => {
+// PUT: Update a budget_summary completely
+app.put('/budget_summary/:user', async (req, res) => {
     try {
-        const budgetSummaryId = req.params.budget_summaryId; // Use budget_summaryId from params
-        const result = await budgetSummaries.updateOne(
-            { _id: new ObjectId(budgetSummaryId) }, // Ensure the ID is valid and properly formatted
-            { $set: req.body }
+        const user = req.params.user; // Get user from URL parameter
+        const updates = req.body; // Get update fields from request body
+
+        const result = await budget_summary.updateOne(
+            { user }, // Find record by user
+            { $set: updates } // Apply updates
         );
 
-        res.status(result.modifiedCount ? 200 : 404).send(result.modifiedCount ? "Budget summary updated" : "No changes made");
+        res.status(result.modifiedCount ? 200 : 404).json({
+            message: result.modifiedCount ? "User budget summary updated" : "No changes made"
+        });
     } catch (err) {
-        res.status(500).send("Error: " + err.message);
+        console.error("Database error:", err);
+        res.status(500).json({ error: "Error updating budget summary: " + err.message });
     }
 });
 
 
 
-app.put('/users/:userId/skills', async (req, res) => {
+
+// DELETE: Remove a budget_summary
+app.delete('/budget_summary/:user', async (req, res) => {
     try {
-        const userId = req.params.userId;
-        const { skills } = req.body;
-
-        // Ensure skills array is provided in the request body
-        if (!skills || !Array.isArray(skills)) {
-            return res.status(400).send("Invalid input: 'skills' must be an array.");
-        }
-
-        // Update the 'skills' field for the specified user
-        const result = await users.updateOne(
-            { userId }, // Match user by userId
-            { $set: { skills } } // Update the 'skills' field
-        );
-
-        if (result.matchedCount === 0) {
-            return res.status(404).send("User not found");
-        }
-
-        res.status(200).send(`${result.modifiedCount} document(s) updated`);
-    } catch (err) {
-        res.status(500).send("Error updating user skills: " + err.message);
-    }
-});
-
-
-// PATCH: Partially update a user
-app.patch('/users/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const updates = req.body;
-        const result = await users.updateOne(
-            { userId: userId },
-            { $set: { headline: "Team Lead at CodingGita" } }
-        );
-        res.status(200).send(`${result.modifiedCount} document(s) updated`);
-    } catch (err) {
-        res.status(500).send("Error partially updating user: " + err.message);
-    }
-});
-
-app.patch('/users/:userId/premium', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        console.log("Received userId:", userId); // Debug log
+        const user = req.params.user;
+        const result = await budget_summary.deleteOne({ user });
         
-        const result = await users.updateOne(
-            { userId: userId },
-            { $set: { isPremium: true } }
-        );
-
-        if (result.matchedCount === 0) {
-            console.log("No matching user found for userId:", userId); // Debug log
-            return res.status(404).send("User not found");
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: "No budget summary found for this user" });
         }
-
-        res.status(200).send(`${result.modifiedCount} document(s) updated`);
+        
+        res.status(200).json({ message: `Budget Summary deleted for user` });
     } catch (err) {
-        res.status(500).send("Error upgrading user to premium: " + err.message);
-    }
-});
-
-
-
-// DELETE: Remove a user
-app.delete('/users/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const result = await users.deleteOne({ userId: userId });
-        res.status(200).send(`${result.deletedCount} document(s) deleted`);
-    } catch (err) {
-        res.status(500).send("Error deleting user: " + err.message);
+        console.error("Database error:", err);
+        res.status(500).json({ error: "Error deleting budget summary: " + err.message });
     }
 });
