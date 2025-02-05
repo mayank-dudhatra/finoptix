@@ -46,11 +46,11 @@ function App() {
             <a href="/" className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"> <img
             src="./Home.png"
             alt="Finoptix Logo"
-            className="w-[20px] h-[20px] object-contain pt-0.5"
+            className="w-[22px] h-[22px] object-contain pt-0.5"
           />Home</a>
 
             <a href="/dashboard" className="px-4 flex items-center gap-x-[9px] p-2 bg-[#F0A6F4] text-[#4B0082] rounded-md"> <img
-            src="./Clock.png"
+            src="./ClockP.png"
             alt="Finoptix Logo"
             className="w-[20px] h-[20px] object-contain pt-0.5"
           />Dashboard</a>
