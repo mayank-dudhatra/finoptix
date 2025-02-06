@@ -1,4 +1,4 @@
-import { Home, Clock, Trophy, ArrowUp, Bell, User, Facebook, Twitter, Instagram, Youtube, PlusCircle } from "lucide-react"
+import { Home, Clock, Trophy, ArrowUp, Bell, User, Facebook, Twitter, Instagram, Youtube} from "lucide-react"
 
 export default function Goals() {
     return (
@@ -27,7 +27,7 @@ export default function Goals() {
                             className="w-[20px] h-[20px] object-contain pt-0.5"
                         />Dashboard</a>
 
-                        <a href="/budget" className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"> <img
+                        <a href="/your_budget" className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"> <img
                             src="./Wallet.png"
                             alt="Finoptix Logo"
                             className="w-[20px] h-[20px] object-contain pt-0.5"
