@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { color, motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import {
   Home,
@@ -15,7 +15,7 @@ import {
   ArrowRight,
   Car,
   Utensils,
-  Heart,
+  Heart, Facebook, Twitter, Instagram, Youtube
 } from "lucide-react"
 
 // Animated counter component
@@ -47,6 +47,7 @@ const Counter = ({ value, duration = 2 }) => {
 
 // Progress bar component
 const ProgressBar = ({ value, max, color }) => {
+
   const percentage = (value / max) * 100
 
   return (
@@ -67,7 +68,7 @@ const ProgressBar = ({ value, max, color }) => {
 }
 
 // Circular Progress component
-const CircularProgress = ({ value, max, color, size = 120 }) => {
+const CircularProgress = ({ value, max, color, size = 127 }) => {
   const percentage = (value / max) * 100
   const circumference = size * Math.PI
   const strokeDashoffset = circumference - (percentage / 100) * circumference
@@ -162,35 +163,41 @@ export default function Your_Budget() {
     { category: "Groceries", amount: 128 },
     { category: "Clothes", amount: 278 },
   ]
+    
 
+  
   const budgetCategories = [
     {
       icon: <Home className="w-6 h-6" />,
       name: "Housing",
       description: "Rent, Utilities and Insurance",
       amount: 2500,
-      color: "bg-blue-100",
+      spent: 1800,
+      color: "bg-[#5F7FC8]",
     },
     {
       icon: <Car className="w-6 h-6" />,
       name: "Transportation",
       description: "Car Payment, Gas, Maintenance",
       amount: 600,
-      color: "bg-purple-100",
+      spent: 450,
+      color: "bg-[#8C28FF]",
     },
     {
       icon: <Utensils className="w-6 h-6" />,
       name: "Food & Dining",
       description: "Groceries, Restaurants & Delivery",
       amount: 800,
-      color: "bg-pink-100",
+      spent: 450,
+      color: "bg-[#FF3F9C]",
     },
     {
       icon: <Heart className="w-6 h-6" />,
       name: "Healthcare",
       description: "Insurance, Medications & Checkups",
       amount: 400,
-      color: "bg-green-100",
+      spent: 200,
+      color: "bg-[#0AC213]",
     },
   ]
 
@@ -204,11 +211,11 @@ export default function Your_Budget() {
       { title: "Total Savings", amount: 1650, trend: 15, color: "bg-blue-100/80", icon: PieChart },
     ],
     categories: [
-      { name: "Housing", percentage: 35 },
-      { name: "Transportation", percentage: 15 },
-      { name: "Food", percentage: 25 },
-      { name: "Healthcare", percentage: 10 },
-      { name: "Entertainment", percentage: 15 },
+      { name: "Housing", percentage: 35, color: "bg-[#5F7FC8]" },
+      { name: "Transportation", percentage: 15, color: "bg-[#8C28FF]" },
+      { name: "Food", percentage: 25, color: "bg-[#FF3F9C]" },
+      { name: "Healthcare", percentage: 10, color: "bg-[#0AC213]" },
+      { name: "Entertainment", percentage: 15, color: "bg-[#E59308]" },
     ],
   }
 
@@ -321,15 +328,15 @@ export default function Your_Budget() {
       <main className="p-6 space-y-6" ref={ref}>
         {/* Daily Expenses */}
         <motion.div
-          className="bg-[#bbffbe] rounded-xl p-6"
+          className="bg-[#BBFFBE] rounded-xl p-6 mb-7"
           variants={fadeInUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           transition={{ duration: 0.5 }}
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-semibold">Daily Expenses</h2>
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="text-[#4F1774]">
+            <h2 className="text-[20] font-semibold">Daily Expenses</h2>
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="text-[#4F1774] text-[16px] font-semibold">
               Add Expense
             </motion.button>
           </div>
@@ -337,7 +344,7 @@ export default function Your_Budget() {
             {dailyExpenses.map((expense, index) => (
               <motion.div
                 key={expense.category}
-                className="bg-[#e0ebf7] rounded-lg p-4 flex justify-between items-center"
+                className="bg-gradient-to-r from-[#B7D2FC] to-[#73ABFF] rounded-lg p-4 flex justify-between items-center"                
                 variants={fadeInUp}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
@@ -361,6 +368,7 @@ export default function Your_Budget() {
         >
           <h2 className="text-lg font-semibold mb-6">Monthly Budget</h2>
           <div className="space-y-6">
+        
             {budgetCategories.map((category, index) => (
               <motion.div
                 key={category.name}
@@ -377,8 +385,8 @@ export default function Your_Budget() {
                   </div>
                   <Counter value={category.amount} />
                 </div>
-                <ProgressBar value={category.amount * 0.8} max={category.amount} color={`bg-[#8913f1]`} />
-              </motion.div>
+                <ProgressBar value={category.spent} max={category.amount} color={category.color} />
+                </motion.div>
             ))}
           </div>
         </motion.div>
@@ -458,7 +466,7 @@ export default function Your_Budget() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <motion.div
-                        className="h-full bg-gradient-to-r from-purple-500 to-purple-600"
+                        className={`h-full ${category.color}`} 
                         initial={{ width: 0 }}
                         animate={{ width: `${category.percentage}%` }}
                         transition={{ duration: 0.8, delay: 0.5 + index * 0.1 }}
@@ -492,6 +500,87 @@ export default function Your_Budget() {
           </motion.div>
         </motion.section>
       </main>
+
+
+
+       {/* Footer */}
+       <footer className="bg-[#4B0082] text-white mt-7 h-[466px]">
+                <div className="container mx-auto px-6 py-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:justify-between ml-18">
+                        <div className="font-outfit font-normal tracking-[0.08em]">
+                            <h3 className="font-semibold text-[22px] mb-4">Our Features</h3>
+                            <ul className="space-y-2 text-[14px]">
+                                <li>Get Started as a Fresher</li>
+                                <li>How To Earn More</li>
+                                <li>Write Blogs Or Read</li>
+                                <li>Learn To Invest</li>
+                                <li>Manage Your Budget</li>
+                                <li>Personalize Future Plans For Your Future</li>
+                            </ul>
+                        </div>
+
+
+                        <div className="font-outfit font-normal tracking-[0.08em]">
+                            <h3 className="font-semibold text-[22px] mb-4">Our Potential Partners</h3>
+                            <ul className="space-y-2 text-[14px]">
+                                <li>Banks</li>
+                                <li>Tech Companies</li>
+                                <li>Insurance Companies</li>
+                                <li>Expert Traders</li>
+                            </ul>
+                        </div>
+
+
+                        <div className="font-outfit font-normal tracking-[0.08em]">
+                            <h3 className="font-semibold text-[22px] mb-4">Help</h3>
+                            <ul className="space-y-2 text-[14px]">
+                                <li>Privacy Policy</li>
+                                <li>FAQ</li>
+                                <li>How to get Started</li>
+                                <li>Video Tutorials</li>
+                                <li>Copyright</li>
+                            </ul>
+                        </div>
+
+
+                        <div className="font-outfit font-normal tracking-[0.08em]">
+                            <h3 className="font-semibold text-[22px] mb-4">About Us</h3>
+                            <ul className="space-y-2 text-[14px]">
+                                <li>Location</li>
+                                <li>Security</li>
+                                <li>Our Plans</li>
+                                <li>Our Vision</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="mt-5 pt-5 border-t border-purple-700">
+                        <div className="flex flex-col md:flex-row justify-between items-center">
+                            <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
+                            <img
+                                src="./Logo.png"
+                                alt="Finoptix Logo"
+                                className="w-[174px] h-[92px] object-contain"
+                            />
+                            <div className="flex items-center space-x-4 mt-4 md:mt-0">
+                                <span className="text-[20px] mr-4font-outfit font-normal">Follow Us on :</span>
+                                <a href="#" className="hover:text-purple-300">
+                                    <Instagram className="w-5 h-5" />
+                                </a>
+                                <a href="#" className="hover:text-purple-300">
+                                    <Youtube className="w-5 h-5" />
+                                </a>
+                                <a href="#" className="hover:text-purple-300">
+                                    <Twitter className="w-5 h-5" />
+                                </a>
+                                <a href="#" className="hover:text-purple-300">
+                                    <Facebook className="w-5 h-5" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
     </div>
   )
 }
