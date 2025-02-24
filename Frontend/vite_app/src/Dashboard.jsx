@@ -1,5 +1,11 @@
 import { Bell, Facebook, Twitter, Instagram, Youtube, ArrowUp, ArrowDown } from "lucide-react"
 import { motion } from "framer-motion"
+import Logo from "./assets/Logo.png";
+import Home from "./assets/Home.png";
+import ClockP from "./assets/ClockP.png";
+import Wallet from "./assets/Wallet.png";
+import Goal from "./assets/Goal.png";
+import Graph from "./assets/Graph.png";
 import {
   PieChart,
   Pie,
@@ -42,7 +48,7 @@ function App() {
       >
         <div className="flex items-center justify-between w-full">
           <motion.img
-            src="./Logo.png"
+            src={Logo}
             alt="Finoptix Logo"
             className="w-[174px] h-[92px] object-contain"
             whileHover={{ scale: 1.05 }}
@@ -57,7 +63,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Home.png"
+                src={Home}
                 alt="Finoptix Logo"
                 className="w-[22px] h-[22px] object-contain pt-0.5"
               />Home
@@ -70,7 +76,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./ClockP.png"
+                src={ClockP}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5"
               />Dashboard
@@ -83,7 +89,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Wallet.png"
+                src={Wallet}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5"
               />Your Budget
@@ -96,7 +102,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Goal.png"
+                src={Goal}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5 text-[#4B0082]"
               />Goals
@@ -109,7 +115,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Graph.png"
+                src={Graph}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5"
               />Investment Analytics
@@ -328,7 +334,7 @@ function App() {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
               <img
-            src="./Logo.png"
+            src={Logo}
             alt="Finoptix Logo"
             className="w-[174px] h-[92px] object-contain"
             />

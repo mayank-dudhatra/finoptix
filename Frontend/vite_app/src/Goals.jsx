@@ -1,5 +1,16 @@
 import { Home, Clock, Trophy, ArrowUp, Bell, User, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { motion } from "framer-motion"
+import Logo from "./assets/Logo.png";
+import Home1 from "./assets/Home.png";
+import Clock1 from "./assets/Clock.png";
+import Wallet from "./assets/Wallet.png";
+import GoalP from "./assets/GoalP.png";
+import House from "./assets/House.png";
+import Piggy from "./assets/Piggy.png";
+import Flight from "./assets/Flight.png";
+import GraphP from "./assets/GraphP.png";
+import Graph from "./assets/Graph.png";
+
 
 export default function Goals() {
     return (
@@ -14,7 +25,7 @@ export default function Goals() {
             >
                 <div className="flex items-center justify-between w-full">
                     <motion.img
-                        src="./Logo.png"
+                        src={Logo}
                         alt="Finoptix Logo"
                         className="w-[174px] h-[92px] object-contain"
                         whileHover={{ scale: 1.05 }}
@@ -29,7 +40,7 @@ export default function Goals() {
                             whileTap={{ scale: 0.95 }}
                         >
                             <img
-                                src="./Home.png"
+                                src={Home1}
                                 alt="Finoptix Logo"
                                 className="w-[22px] h-[22px] object-contain pt-0.5"
                             />Home
@@ -42,7 +53,7 @@ export default function Goals() {
                             whileTap={{ scale: 0.95 }}
                         >
                             <img
-                                src="./Clock.png"
+                                src={Clock1}
                                 alt="Finoptix Logo"
                                 className="w-[20px] h-[20px] object-contain pt-0.5"
                             />Dashboard
@@ -55,7 +66,7 @@ export default function Goals() {
                             whileTap={{ scale: 0.95 }}
                         >
                             <img
-                                src="./Wallet.png"
+                                src={Wallet}
                                 alt="Finoptix Logo"
                                 className="w-[20px] h-[20px] object-contain pt-0.5"
                             />Your Budget
@@ -68,7 +79,7 @@ export default function Goals() {
                             whileTap={{ scale: 0.95 }}
                         >
                             <img
-                                src="./GoalP.png"
+                                src={GoalP}
                                 alt="Finoptix Logo"
                                 className="w-[20px] h-[20px] object-contain pt-0.5 text-[#4B0082]"
                             />Goals
@@ -81,7 +92,7 @@ export default function Goals() {
                             whileTap={{ scale: 0.95 }}
                         >
                             <img
-                                src="./Graph.png"
+                                src={Graph}
                                 alt="Finoptix Logo"
                                 className="w-[20px] h-[20px] object-contain pt-0.5"
                             />Investment Analytics
@@ -174,7 +185,7 @@ export default function Goals() {
                     <div className="space-y-4">
                         <div className="bg-[#9aff9ad5] bg-opacity-30 p-4 rounded-lg flex justify-between items-center">
                             <div className="flex items-center space-x-4">
-                                <img src="./House.png" alt="House" className="w-[30px] h-[30px] object-contain pt-0.5" />
+                                <img src={House} alt="House" className="w-[30px] h-[30px] object-contain pt-0.5" />
                                 <div>
                                     <h3 className="font-semibold">Home Down Payment</h3>
                                     <p className="text-[15px] font-semibold text-gray-600">December 2024</p>
@@ -190,7 +201,7 @@ export default function Goals() {
                         <div className="bg-[#fbe58e86] bg-opacity-30 p-4 rounded-lg flex justify-between items-center">
                             <div className="flex items-center space-x-4">
                                 <div className="text-[#e59308]">
-                                    <img src="./Piggy.png" alt="Piggy" className="w-[30px] h-[30px] object-contain pt-0.5" />
+                                    <img src={Piggy} alt="Piggy" className="w-[30px] h-[30px] object-contain pt-0.5" />
                                 </div>
                                 <div>
                                     <h3 className="font-semibold">Emergency Funds</h3>
@@ -207,7 +218,7 @@ export default function Goals() {
                         <div className="bg-[#a0e7ffb8] bg-opacity-30 p-4 rounded-lg flex justify-between items-center">
                             <div className="flex items-center space-x-4">
                                 <div className="text-[#015adf]">
-                                    <img src="./Flight.png" alt="" className="w-[30px] h-[30px] object-contain pt-0.5" />
+                                    <img src={Flight} alt="" className="w-[30px] h-[30px] object-contain pt-0.5" />
                                 </div>
                                 <div>
                                     <h3 className="font-semibold">Vacation Funds</h3>
@@ -224,7 +235,7 @@ export default function Goals() {
                         <div className="bg-[#c788ffd1] bg-opacity-30 p-4 rounded-lg flex justify-between items-center">
                             <div className="flex items-center space-x-4">
                                 <div className="text-[#7400c1]">
-                                    <img src="./GraphP.png" alt="" className="w-[30px] h-[30px] object-contain pt-0.5" />
+                                    <img src={GraphP} alt="" className="w-[30px] h-[30px] object-contain pt-0.5" />
                                 </div>
                                 <div>
                                     <h3 className="font-semibold">Retirement Funds</h3>
@@ -321,7 +332,7 @@ export default function Goals() {
                         <div className="flex flex-col md:flex-row justify-between items-center">
                             <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
                             <img
-                                src="./Logo.png"
+                                src={Logo}
                                 alt="Finoptix Logo"
                                 className="w-[174px] h-[92px] object-contain"
                             />

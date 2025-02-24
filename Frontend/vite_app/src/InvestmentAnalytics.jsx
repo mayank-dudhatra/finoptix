@@ -256,6 +256,17 @@ import { useState, useEffect } from "react"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { Bell, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { motion, AnimatePresence, color } from "framer-motion"
+import Logo from "./assets/Logo.png";
+import Home from "./assets/Home.png";
+import Clock from "./assets/Clock.png";
+import ClockP from "./assets/ClockP.png";
+import Wallet from "./assets/Wallet.png";
+import Goal from "./assets/Goal.png";
+import GoalP from "./assets/GoalP.png";
+import GraphP from "./assets/GraphP.png";
+import Badge from "./assets/Badge.png";
+import Stats from "./assets/Stats.png";
+import Alert from "./assets/Alert.png";
 
 // Sample data
 const performanceData = [
@@ -269,18 +280,18 @@ const performanceData = [
 
 
 const holdings = [
-  { asset: "AAPL", type: "Stocks", quantity: 100, price: 175.5, value: 17550, return: "+25.3%" },
-  { asset: "MSFT", type: "Stocks", quantity: 85, price: 380.25, value: 32321.25, return: "+32.8%" },
-  { asset: "VGSH", type: "Bonds", quantity: 200, price: 58.25, value: 11650, return: "+3.5%" },
-  { asset: "VNQ", type: "Real Estate", quantity: 150, price: 85.75, value: 12862.5, return: "+8.2%" },
+  { asset: "AAPL", discription: "Apple Inc.", type: "Stocks", quantity: 100, price: 175.5, value: 17550, return: "+25.3%" },
+  { asset: "MSFT", discription: "Microsoft Corp.", type: "Stocks", quantity: 85, price: 380.25, value: 32321.25, return: "+32.8%" },
+  { asset: "VGSH", discription: "Vanguard Short-Team Treasury ETF", type: "Bonds", quantity: 200, price: 58.25, value: 11650, return: "+3.5%" },
+  { asset: "VNQ", discription: "Vanguard Real Estate ETF", type: "Real Estate", quantity: 150, price: 85.75, value: 12862.5, return: "+8.2%" },
 ]
 
 const assets = [
   { name: "Stocks", value: 45, amount: "$85,400", color: "#5f1774" },
   { name: "Bonds", value: 25, amount: "$47,200", color: "#8c28ff" },
-  { name: "Real Estate", value: 15, amount: "$28,300", color: "#bcffbf" },
-  { name: "Cash", value: 10, amount: "$18,900", color: "#e0ebf7" },
-  { name: "Commodities", value: 5, amount: "$9,400", color: "#f0e0eb" },
+  { name: "Real Estate", value: 15, amount: "$28,300", color: "#5F7FC8" },
+  { name: "Cash", value: 10, amount: "$18,900", color: "#E46262" },
+  { name: "Commodities", value: 5, amount: "$9,400", color: "#9A9A0E" },
 ]
 
 const InvestmentAnalytics = () => {
@@ -339,7 +350,7 @@ const Header = () => (
 >
   <div className="flex items-center justify-between w-full">
     <motion.img
-      src="./Logo.png"
+      src={Logo}
       alt="Finoptix Logo"
       className="w-[174px] h-[92px] object-contain"
       whileHover={{ scale: 1.05 }}
@@ -354,7 +365,7 @@ const Header = () => (
         whileTap={{ scale: 0.95 }}
       >
         <img
-          src="./Home.png"
+          src={Home}
           alt="Finoptix Logo"
           className="w-[22px] h-[22px] object-contain pt-0.5"
         />Home
@@ -367,7 +378,7 @@ const Header = () => (
         whileTap={{ scale: 0.95 }}
       >
         <img
-          src="./Clock.png"
+          src={Clock}
           alt="Finoptix Logo"
           className="w-[20px] h-[20px] object-contain pt-0.5"
         />Dashboard
@@ -380,7 +391,7 @@ const Header = () => (
         whileTap={{ scale: 0.95 }}
       >
         <img
-          src="./Wallet.png"
+          src={Wallet}
           alt="Finoptix Logo"
           className="w-[20px] h-[20px] object-contain pt-0.5"
         />Your Budget
@@ -393,7 +404,7 @@ const Header = () => (
         whileTap={{ scale: 0.95 }}
       >
         <img
-          src="./Goal.png"
+          src={Goal}
           alt="Finoptix Logo"
           className="w-[20px] h-[20px] object-contain pt-0.5 text-[#4B0082]"
         />Goals
@@ -406,7 +417,7 @@ const Header = () => (
         whileTap={{ scale: 0.95 }}
       >
         <img
-          src="./GraphP.png"
+          src={GraphP}
           alt="Finoptix Logo"
           className="w-[20px] h-[20px] object-contain pt-0.5"
         />Investment Analytics
@@ -433,11 +444,12 @@ const Header = () => (
 </motion.header>
 )
 
+
 const KPICards = () => {
   const kpis = [
-    { title: "Total Portfolio", value: "$189,200", change: "+3.2% today", color: "bg-[#C3D9F7]", img: "ClockP.png"  },
-    { title: "Total Return", value: "$45,800", change: "+22.5% all time", color: "bg-[#E9E1F6]", img: "GraphP.png"  },
-    { title: "Dividends", value: "$2,450", change: "Last 12 months", color: "bg-[#F0E0EB]", img: "GoalP.png"  },
+    { title: "Total Portfolio", value: "$189,200", change: "+3.2% today", color: "bg-[#C3D9F7]", img: ClockP  },
+    { title: "Total Return", value: "$45,800", change: "+22.5% all time", color: "bg-[#E9E1F6]", img: GraphP  },
+    { title: "Dividends", value: "$2,450", change: "Last 12 months", color: "bg-[#F0E0EB]", img: GoalP  },
   ]
 
   return (
@@ -485,83 +497,64 @@ const KPICards = () => {
 // )
 
 
-const PPerformanceChart = () => {
-  const [performance, setPerformance] = useState({
-    total: 45.8,
-    changeToday: 2.5,
-    timeframe: '1D',
-  });
 
-  const timeframes = [
-    { label: '1D', value: '+2.5%' },
-    { label: '1W', value: '+3.8%' },
-    { label: '1M', value: '+5.2%' },
-    { label: '3M', value: '+8.5%' },
-    { label: '1Y', value: '+15.3%' },
-    { label: 'All', value: '+45.8%' },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPerformance(prev => ({
-        ...prev,
-        total: (prev.total + (Math.random() - 0.5)).toFixed(1),
-        changeToday: (prev.changeToday + (Math.random() - 0.5)).toFixed(1),
-      }));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="bg-green-100 rounded-2xl p-4 shadow-md">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-lg font-semibold">Portfolio Performance</h2>
-          <p className="text-sm text-gray-600">Track your investment returns over time</p>
-        </div>
-        <button className="bg-white text-sm px-3 py-1 rounded-md shadow">{performance.timeframe}</button>
+const PerformanceChart = () => (
+  <motion.div
+    className="bg-[#BCFFBF] p-6 rounded-xl shadow-lg"
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    {/* Header Section */}
+    <div className="flex justify-between items-center mb-4">
+      <div>
+        <h3 className="text-xl font-semibold text-gray-900">Portfolio Performance</h3>
+        <p className="text-sm text-gray-700">Track your investment returns over time</p>
       </div>
-
-      <div className="mt-4 flex items-center gap-4">
-        <h1 className="text-4xl font-bold">+{performance.total}%</h1>
-        <span className="text-green-600 text-sm">{performance.changeToday}% today</span>
-        <Calendar className="w-5 h-5 text-gray-500" />
-      </div>
-
-      <motion.div
-        className="bg-[#BCFFBF] p-4 rounded-xl shadow-md my-6"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <RechartLineChart data={performanceData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="value" stroke="#5f1774" strokeWidth={2} dot={{ fill: "#5f1774" }} />
-            </RechartLineChart>
-          </ResponsiveContainer>
-        </div>
-      </motion.div>
-
-      <div className="grid grid-cols-3 gap-2 mt-4">
-        {timeframes.map((timeframe) => (
-          <div
-            key={timeframe.label}
-            className="bg-white rounded-lg p-2 text-center shadow cursor-pointer hover:bg-green-50"
-            onClick={() => setPerformance(prev => ({ ...prev, timeframe: timeframe.label }))}
-          >
-            <p className="text-sm font-medium">{timeframe.label}</p>
-            <p className="text-green-600 font-semibold">{timeframe.value}</p>
-          </div>
-        ))}
-      </div>
+      <button className="px-3 py-1 bg-white text-gray-800 font-medium text-sm rounded-md shadow-sm border border-gray-300 hover:bg-gray-100 transition">
+        1D
+      </button>
     </div>
-  );
-};
+
+    {/* Percentage Display */}
+    <div className="flex justify-between items-center mb-6 mt-6">
+    <div className="text-[32px] font-semibold text-gray-900 mb-1">+45.8%</div>
+    <div className="text-md text-green-800 font-semibold mb-0">+2.5% today</div>
+    </div>
+
+    {/* Chart Section */}
+    <div className="h-52">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={performanceData}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
+          <XAxis dataKey="month" tick={{ fill: "#374151", fontSize: 13 }} tickLine={false} />
+          <YAxis tick={{ fill: "#374151", fontSize: 13 }} tickLine={false} />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#5f1774"
+            strokeWidth={3}
+            dot={{ fill: "#5f1774", strokeWidth: 2, r: 6 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+
+    {/* Time Range Buttons */}
+    <div className="mt-6 grid grid-cols-3 gap-3">
+      {["1D", "1W", "1M", "3M", "1Y", "All"].map((range, index) => (
+        <button
+          key={index}
+          className="text-sm font-medium px-3 py-2 bg-white border rounded-lg text-gray-800 shadow-md hover:bg-gray-200 transition"
+        >
+          {range} <span className="text-green-700 font-semibold">+{Math.floor(Math.random() * 10)}%</span>
+        </button>
+      ))}
+    </div>
+  </motion.div>
+);
+
 
 
 
@@ -599,15 +592,15 @@ const AssetAllocation = () => (
 
 const RiskAnalysis = () => {
   const metrics = [
-    { title: "Risk Score", value: "65/100" },
-    { title: "Volatility", value: "12.5%" },
-    { title: "Max Drawdown", value: "-15.4%" },
-    { title: "Sharpe Ratio", value: "1.8" },
+    { title: "Risk Score", value: "65/100", img: Badge },
+    { title: "Volatility", value: "12.5%", img: Stats },
+    { title: "Max Drawdown", value: "-15.4%", img: Alert },
+    { title: "Sharpe Ratio", value: "1.8", img: GraphP },
   ]
 
   return (
     <motion.div
-      className="bg-[#e0ebf7] p-6 rounded-xl"
+      className="bg-[#D1D6EA] p-6 rounded-xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -622,7 +615,10 @@ const RiskAnalysis = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2, duration: 0.5 }}
           >
+            <div className="flex items-center">
+            <img src={metric.img} alt="Portfolio Icon" className="w-4 h-4 mr-2" />
             <p className="text-sm text-gray-600">{metric.title}</p>
+            </div>
             <p className="text-xl font-semibold mt-1">{metric.value}</p>
           </motion.div>
         ))}
@@ -633,7 +629,7 @@ const RiskAnalysis = () => {
 
 const PortfolioHoldings = () => (
   <motion.div
-    className="bg-white p-6 rounded-xl shadow-lg"
+    className="bg-[#FFFBD4] p-6 rounded-xl shadow-lg"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
@@ -642,14 +638,14 @@ const PortfolioHoldings = () => (
       <h3 className="text-lg font-semibold">Portfolio Holdings</h3>
       <div className="space-x-2">
         <motion.button
-          className="px-4 py-2 text-sm border rounded"
+          className="px-4 py-2 text-[17px] text-[#6E07C8] font-semibold"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           Export CSV
         </motion.button>
         <motion.button
-          className="px-4 py-2 text-sm bg-purple-600 text-white rounded"
+          className="px-4 py-2 bg-gradient-to-r from-[#6535F6] to-[#800BBE] text-white rounded-lg text-[17px] font-medium"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -678,7 +674,10 @@ const PortfolioHoldings = () => (
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <td className="py-4">{holding.asset}</td>
+              <div className="flex flex-col">
+              <td className="pt-2">{holding.asset}</td>
+              <td className="pb-3 pt-0 text-[14px] font-medium text-[#424242]">{holding.discription}</td>
+              </div>
               <td>{holding.type}</td>
               <td>{holding.quantity}</td>
               <td>${holding.price.toFixed(2)}</td>
@@ -747,7 +746,7 @@ const Footer = () => (
                           <div className="flex flex-col md:flex-row justify-between items-center">
                               <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
                               <img
-                                  src="./Logo.png"
+                                  src={Logo}
                                   alt="Finoptix Logo"
                                   className="w-[174px] h-[92px] object-contain"
                               />

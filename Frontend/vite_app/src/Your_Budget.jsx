@@ -17,6 +17,12 @@ import {
   Utensils,
   Heart, Facebook, Twitter, Instagram, Youtube
 } from "lucide-react"
+import Logo from "./assets/Logo.png";
+import Home1 from "./assets/Home.png";
+import Clock1 from "./assets/Clock.png";
+import WalletP from "./assets/WalletP.png";
+import Goal from "./assets/Goal.png";
+import Graph from "./assets/Graph.png";
 
 // Animated counter component
 const Counter = ({ value, duration = 2 }) => {
@@ -231,7 +237,7 @@ export default function Your_Budget() {
       >
         <div className="flex items-center justify-between w-full">
           <motion.img
-            src="./Logo.png"
+            src={Logo}
             alt="Finoptix Logo"
             className="w-[174px] h-[92px] object-contain"
             whileHover={{ scale: 1.05 }}
@@ -246,7 +252,7 @@ export default function Your_Budget() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Home.png"
+                src={Home1}
                 alt="Finoptix Logo"
                 className="w-[22px] h-[22px] object-contain pt-0.5"
               />Home
@@ -259,7 +265,7 @@ export default function Your_Budget() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Clock.png"
+                src={Clock1}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5"
               />Dashboard
@@ -272,7 +278,7 @@ export default function Your_Budget() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./WalletP.png"
+                src={WalletP}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5"
               />Your Budget
@@ -285,7 +291,7 @@ export default function Your_Budget() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Goal.png"
+                src={Goal}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5 text-[#4B0082]"
               />Goals
@@ -298,7 +304,7 @@ export default function Your_Budget() {
               whileTap={{ scale: 0.95 }}
             >
               <img
-                src="./Graph.png"
+                src={Graph}
                 alt="Finoptix Logo"
                 className="w-[20px] h-[20px] object-contain pt-0.5"
               />Investment Analytics
@@ -558,7 +564,7 @@ export default function Your_Budget() {
                         <div className="flex flex-col md:flex-row justify-between items-center">
                             <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
                             <img
-                                src="./Logo.png"
+                                src={Logo}
                                 alt="Finoptix Logo"
                                 className="w-[174px] h-[92px] object-contain"
                             />
