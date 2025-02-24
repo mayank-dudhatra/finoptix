@@ -209,6 +209,9 @@ import Clock from "./assets/Clock.png";
 import Wallet from "./assets/Wallet.png";
 import Goal from "./assets/Goal.png";
 import Graph from "./assets/Graph.png";
+import Pie from "./assets/Pie.png";
+import Savings from "./assets/Savings.png";
+import Timer from "./assets/Timer.png";
 import Spendings from "./assets/Spendings.jpg";
 import Goals from "./assets/Goals.jpg";
 import Benefits_Section from "./assets/Benefits Section.jpg";
@@ -381,7 +384,7 @@ export default function Home() {
       {/* Goals Section */}
       <section className="p-8 md:p-16 mb-0 bg-white">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-4 w-[85%]">
+          <div className="space-y-4 w-[85%] pl-3">
             <h2 className="text-[36px] font-bold text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>Achieve Your Goals Easily and fulfill your dreams</h2>
             <p className="text-gray-600 font-semibold text-[20px]">The Goal feature in FINOPTIX helps you turn financial dreams into reality. From saving for a house to planning a vacation, it analyzes your spending patterns and guides you towards achieving your financial goals faster and more effectively.
             </p>
@@ -390,9 +393,9 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -right-20 -bottom-20 w-40 h-40 bg-purple-500 rounded-full opacity-20"></div>
             <img
-              src={Goals}             
+              src={Goals}
               alt="Goals Screenshot"
-              className="z-10 rounded-lg overflow-hidden bg-cover bg-center pl-20"
+              className="z-10 rounded-lg overflow-hidden bg-cover bg-center pl-40"
             />
           </div>
         </div>
@@ -418,7 +421,7 @@ export default function Home() {
 
       {/* Features Grid */}
       <section
-        className="relative w-screen min-h-[700px] md:min-h-[900px] flex items-center justify-center p-8 md:p-16 overflow-hidden"
+        className="relative w-screen min-h-[700px] md:min-h-[800px] flex items-center justify-center p-8 md:p-16 overflow-hidden"
       >
         {/* Background Image */}
         <div
@@ -429,18 +432,24 @@ export default function Home() {
 
         {/* Content */}
         <div className="relative max-w-6xl mx-auto grid md:grid-cols-3 gap-8 p-6 pt-49">
-          <div className="p-6 rounded-lg border border-gray-200">
+          <div className="p-6 rounded-lg border border-gray-200 shadow-[0_0_17px_10px_rgba(0,0,0,0.09)]">
+            <img src={Pie} alt="" />
             <h3 className="text-[20px] font-normal text-black mb-2">Get Full Analysis</h3>
             <p className="text-gray-600 text-[17px] font-normal w-[86%]">Get full analysis of your income, expenses and your investments at one place.</p>
           </div>
-          <div className="p-6 rounded-lg border border-gray-200">
+
+          <div className="p-6 rounded-lg border border-gray-200 shadow-[0_0_17px_10px_rgba(0,0,0,0.09)]">
+          <img src={Savings} alt="" />
             <h3 className="text-[20px] font-normal text-black mb-2">Set Smart Goals</h3>
             <p className="text-gray-600 text-[17px] font-normal">Set budget goals for your future, get a new car, go to a dream vacay or study in dream collage.</p>
           </div>
-          <div className="p-6 rounded-lg border border-gray-200">
+
+          <div className="p-6 rounded-lg border border-gray-200 shadow-[0_0_17px_10px_rgba(0,0,0,0.09)]">
+          <img src={Timer} alt="" />
             <h3 className="text-[20px] font-normal text-black mb-2">Get Hold Over Your Expenses</h3>
             <p className="text-gray-600 text-[17px] font-normal">Track your cash expenses, bank accounts, credits and cryptos.</p>
           </div>
+
         </div>
       </section>
 
