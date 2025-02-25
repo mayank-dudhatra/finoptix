@@ -10,9 +10,12 @@ import Piggy from "./assets/Piggy.png";
 import Flight from "./assets/Flight.png";
 import GraphP from "./assets/GraphP.png";
 import Graph from "./assets/Graph.png";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function Goals() {
+    const navigate = useNavigate();
     return (
         <div className="min-h-screen bg-[#E0EBF7]">
 
@@ -107,12 +110,13 @@ export default function Goals() {
                         >
                             <Bell className="w-5 h-5" />
                         </motion.button>
-                        <motion.button
-                            className="hover:bg-purple-700 rounded-full"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
+                      <motion.button
+                          className="hover:bg-purple-700 rounded-full"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => navigate("/profile")} // Navigate to Profile Page
                         >
-                            <div className="w-8 h-8 bg-purple-300 rounded-full" />
+                          <div className="w-8 h-8 bg-purple-300 rounded-full" />
                         </motion.button>
                     </div>
                 </div>
