@@ -18,6 +18,8 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts"
+import { useNavigate } from "react-router-dom";
+
 
 const expenseData = [
   { name: "Housing", value: 35, color: "#8884d8" },
@@ -37,6 +39,7 @@ const monthlyData = [
 ]
 
 function App() {
+  const navigate = useNavigate()
   return (
     <div className="min-h-screen flex flex-col bg-[#E0EBF7] relative">
       {/* Header */}
@@ -130,13 +133,14 @@ function App() {
             >
               <Bell className="w-5 h-5" />
             </motion.button>
-            <motion.button
-              className="hover:bg-purple-700 rounded-full"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="w-8 h-8 bg-purple-300 rounded-full" />
-            </motion.button>
+             <motion.button
+                 className="hover:bg-purple-700 rounded-full"
+                 whileHover={{ scale: 1.1 }}
+                 whileTap={{ scale: 0.95 }}
+                 onClick={() => navigate("/profile")} // Navigate to Profile Page
+               >
+                 <div className="w-8 h-8 bg-purple-300 rounded-full" />
+               </motion.button>
           </div>
         </div>
       </motion.header>
@@ -146,9 +150,9 @@ function App() {
       <main className="flex-1 p-6">
         <div className="max-w-7xl mx-auto space-y-6">
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 ">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 ml-1 ">
 
-            <div className="bg-[#C3D9F7] w-[300px] h-[153px] p-[24px] rounded-lg shadow-lg">
+            <div className="bg-[#bfd7f9] w-[340px] h-[153px] p-[24px] rounded-lg shadow-lg">
               <div className="flex justify-between items-center text-black-500">
                 <span className="font-semibold" style={{ fontSize: "18px", fontWeight: "500" }}>Total Balance</span>
                 <span className="font-medium" style={{ fontSize: "12px", fontWeight: "500", color: "#535252" }}>Updated 2m ago</span>
@@ -165,7 +169,7 @@ function App() {
 
 
 
-            <div className="bg-[#E9E1F6]  w-[300px] h-[153px] p-[24px] rounded-lg shadow-lg">
+            <div className="bg-[#e2d6f5]  w-[340px] h-[153px] p-[24px] rounded-lg shadow-lg">
               <div className="flex justify-between items-center text-sm text-black-500">
                 <span className="font-semibold" style={{ fontSize: "18px", fontWeight: "500" }}>Monthly Spending</span>
                 <span className="font-medium" style={{ fontSize: "12px", fontWeight: "500", color: "#535252" }}>January 2025</span>
@@ -177,7 +181,7 @@ function App() {
               </div>
             </div>
 
-            <div className="bg-[#F0E0EB]  w-[300px] h-[153px] p-[24px] rounded-lg shadow-lg">
+            <div className="bg-[#f3cfe8]  w-[340px] h-[153px] p-[24px] rounded-lg shadow-lg">
               <div className="flex justify-between items-center text-sm text-black-500">
                 <span className="font-semibold" style={{ fontSize: "18px", fontWeight: "500" }}>Savings Goal</span>
                 <span className="font-medium" style={{ fontSize: "12px", fontWeight: "500", color: "#535252", paddingBottom: "2px" }}>Home Down Payment</span>
@@ -193,7 +197,7 @@ function App() {
 
 
 
-            <div className="bg-[#D1D6EA]  w-[300px] h-[153px] p-[24px] rounded-lg shadow-lg">
+            <div className="bg-[#cdd5f7]  w-[340px] h-[153px] p-[24px] rounded-lg shadow-lg">
               <div className="flex justify-between items-center text-sm text-black-500">
                 <span className="font-semibold" style={{ fontSize: "18px", fontWeight: "500" }}>Investment Returns</span>
                 <span className="font-medium" style={{ fontSize: "12px", fontWeight: "500", color: "#535252" }}>YTD</span>
@@ -207,9 +211,9 @@ function App() {
           </div>
 
           {/* Charts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 ml-1">
             {/* Expense Breakdown */}
-            <div className="bg-[#BBFFBE] p-6 rounded-lg w-[628px] shadow-lg">
+            <div className="bg-[#BBFFBE] p-6 rounded-lg w-[705px] shadow-lg">
               <h3 className="text-[20px] font-medium mb-4">Expense Breakdown</h3>
               <div className="h-[280px]">
                 <ResponsiveContainer>
@@ -239,7 +243,7 @@ function App() {
             </div>
 
             {/* Monthly Trend */}
-            <div className="bg-[#BBFFBE] p-6 rounded-lg w-[628px] h-[38] shadow-lg">
+            <div className="bg-[#BBFFBE] p-6 rounded-lg w-[705px] h-[40] shadow-lg">
               <h3 className="text-[20px] font-medium mb-4">Monthly Trend</h3>
               <div className="h-[300px]">
                 <ResponsiveContainer>

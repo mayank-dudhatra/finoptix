@@ -23,6 +23,8 @@ import Clock1 from "./assets/Clock.png";
 import WalletP from "./assets/WalletP.png";
 import Goal from "./assets/Goal.png";
 import Graph from "./assets/Graph.png";
+import { useNavigate } from "react-router-dom";
+
 
 // Animated counter component
 const Counter = ({ value, duration = 2 }) => {
@@ -151,6 +153,7 @@ const SpendingCard = ({ title, amount, trend, color, icon: Icon }) => {
 }
 
 export default function Your_Budget() {
+  const navigate = useNavigate()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -169,9 +172,9 @@ export default function Your_Budget() {
     { category: "Groceries", amount: 128 },
     { category: "Clothes", amount: 278 },
   ]
-    
 
-  
+
+
   const budgetCategories = [
     {
       icon: <Home className="w-6 h-6" />,
@@ -323,6 +326,7 @@ export default function Your_Budget() {
               className="hover:bg-purple-700 rounded-full"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/profile")} // Navigate to Profile Page
             >
               <div className="w-8 h-8 bg-purple-300 rounded-full" />
             </motion.button>
@@ -350,7 +354,7 @@ export default function Your_Budget() {
             {dailyExpenses.map((expense, index) => (
               <motion.div
                 key={expense.category}
-                className="bg-gradient-to-r from-[#B7D2FC] to-[#73ABFF] rounded-lg p-4 flex justify-between items-center"                
+                className="bg-gradient-to-r from-[#B7D2FC] to-[#73ABFF] rounded-lg p-4 flex justify-between items-center"
                 variants={fadeInUp}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}
@@ -374,7 +378,7 @@ export default function Your_Budget() {
         >
           <h2 className="text-lg font-semibold mb-6">Monthly Budget</h2>
           <div className="space-y-6">
-        
+
             {budgetCategories.map((category, index) => (
               <motion.div
                 key={category.name}
@@ -392,7 +396,7 @@ export default function Your_Budget() {
                   <Counter value={category.amount} />
                 </div>
                 <ProgressBar value={category.spent} max={category.amount} color={category.color} />
-                </motion.div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
@@ -472,7 +476,7 @@ export default function Your_Budget() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <motion.div
-                        className={`h-full ${category.color}`} 
+                        className={`h-full ${category.color}`}
                         initial={{ width: 0 }}
                         animate={{ width: `${category.percentage}%` }}
                         transition={{ duration: 0.8, delay: 0.5 + index * 0.1 }}
@@ -509,84 +513,84 @@ export default function Your_Budget() {
 
 
 
-       {/* Footer */}
-       <footer className="bg-[#4B0082] text-white mt-7 h-[466px]">
-                <div className="container mx-auto px-6 py-8">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:justify-between ml-18">
-                        <div className="font-outfit font-normal tracking-[0.08em]">
-                            <h3 className="font-semibold text-[22px] mb-4">Our Features</h3>
-                            <ul className="space-y-2 text-[14px]">
-                                <li>Get Started as a Fresher</li>
-                                <li>How To Earn More</li>
-                                <li>Write Blogs Or Read</li>
-                                <li>Learn To Invest</li>
-                                <li>Manage Your Budget</li>
-                                <li>Personalize Future Plans For Your Future</li>
-                            </ul>
-                        </div>
+      {/* Footer */}
+      <footer className="bg-[#4B0082] text-white mt-7 h-[466px]">
+        <div className="container mx-auto px-6 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:justify-between ml-18">
+            <div className="font-outfit font-normal tracking-[0.08em]">
+              <h3 className="font-semibold text-[22px] mb-4">Our Features</h3>
+              <ul className="space-y-2 text-[14px]">
+                <li>Get Started as a Fresher</li>
+                <li>How To Earn More</li>
+                <li>Write Blogs Or Read</li>
+                <li>Learn To Invest</li>
+                <li>Manage Your Budget</li>
+                <li>Personalize Future Plans For Your Future</li>
+              </ul>
+            </div>
 
 
-                        <div className="font-outfit font-normal tracking-[0.08em]">
-                            <h3 className="font-semibold text-[22px] mb-4">Our Potential Partners</h3>
-                            <ul className="space-y-2 text-[14px]">
-                                <li>Banks</li>
-                                <li>Tech Companies</li>
-                                <li>Insurance Companies</li>
-                                <li>Expert Traders</li>
-                            </ul>
-                        </div>
+            <div className="font-outfit font-normal tracking-[0.08em]">
+              <h3 className="font-semibold text-[22px] mb-4">Our Potential Partners</h3>
+              <ul className="space-y-2 text-[14px]">
+                <li>Banks</li>
+                <li>Tech Companies</li>
+                <li>Insurance Companies</li>
+                <li>Expert Traders</li>
+              </ul>
+            </div>
 
 
-                        <div className="font-outfit font-normal tracking-[0.08em]">
-                            <h3 className="font-semibold text-[22px] mb-4">Help</h3>
-                            <ul className="space-y-2 text-[14px]">
-                                <li>Privacy Policy</li>
-                                <li>FAQ</li>
-                                <li>How to get Started</li>
-                                <li>Video Tutorials</li>
-                                <li>Copyright</li>
-                            </ul>
-                        </div>
+            <div className="font-outfit font-normal tracking-[0.08em]">
+              <h3 className="font-semibold text-[22px] mb-4">Help</h3>
+              <ul className="space-y-2 text-[14px]">
+                <li>Privacy Policy</li>
+                <li>FAQ</li>
+                <li>How to get Started</li>
+                <li>Video Tutorials</li>
+                <li>Copyright</li>
+              </ul>
+            </div>
 
 
-                        <div className="font-outfit font-normal tracking-[0.08em]">
-                            <h3 className="font-semibold text-[22px] mb-4">About Us</h3>
-                            <ul className="space-y-2 text-[14px]">
-                                <li>Location</li>
-                                <li>Security</li>
-                                <li>Our Plans</li>
-                                <li>Our Vision</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div className="font-outfit font-normal tracking-[0.08em]">
+              <h3 className="font-semibold text-[22px] mb-4">About Us</h3>
+              <ul className="space-y-2 text-[14px]">
+                <li>Location</li>
+                <li>Security</li>
+                <li>Our Plans</li>
+                <li>Our Vision</li>
+              </ul>
+            </div>
+          </div>
 
-                    <div className="mt-5 pt-5 border-t border-purple-700">
-                        <div className="flex flex-col md:flex-row justify-between items-center">
-                            <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
-                            <img
-                                src={Logo}
-                                alt="Finoptix Logo"
-                                className="w-[174px] h-[92px] object-contain"
-                            />
-                            <div className="flex items-center space-x-4 mt-4 md:mt-0">
-                                <span className="text-[20px] mr-4font-outfit font-normal">Follow Us on :</span>
-                                <a href="#" className="hover:text-purple-300">
-                                    <Instagram className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="hover:text-purple-300">
-                                    <Youtube className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="hover:text-purple-300">
-                                    <Twitter className="w-5 h-5" />
-                                </a>
-                                <a href="#" className="hover:text-purple-300">
-                                    <Facebook className="w-5 h-5" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+          <div className="mt-5 pt-5 border-t border-purple-700">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
+              <img
+                src={Logo}
+                alt="Finoptix Logo"
+                className="w-[174px] h-[92px] object-contain"
+              />
+              <div className="flex items-center space-x-4 mt-4 md:mt-0">
+                <span className="text-[20px] mr-4font-outfit font-normal">Follow Us on :</span>
+                <a href="#" className="hover:text-purple-300">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="#" className="hover:text-purple-300">
+                  <Youtube className="w-5 h-5" />
+                </a>
+                <a href="#" className="hover:text-purple-300">
+                  <Twitter className="w-5 h-5" />
+                </a>
+                <a href="#" className="hover:text-purple-300">
+                  <Facebook className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

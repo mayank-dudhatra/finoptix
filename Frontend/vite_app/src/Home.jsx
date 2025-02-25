@@ -202,19 +202,26 @@
 "use client"
 import React from 'react'
 import { Bell, CircleDollarSign, LineChart, Target, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, px } from "framer-motion"
 import Logo from "./assets/Logo.png";
 import HomeP from "./assets/HomeP.png";
 import Clock from "./assets/Clock.png";
 import Wallet from "./assets/Wallet.png";
 import Goal from "./assets/Goal.png";
 import Graph from "./assets/Graph.png";
+import Pie from "./assets/Pie.png";
+import Savings from "./assets/Savings.png";
+import Timer from "./assets/Timer.png";
 import Spendings from "./assets/Spendings.jpg";
 import Goals from "./assets/Goals.jpg";
 import Benefits_Section from "./assets/Benefits Section.jpg";
 import Background from "./assets/Background.jpg";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-[#1a0f2e] text-white">
 
@@ -313,6 +320,7 @@ export default function Home() {
               className="hover:bg-purple-700 rounded-full"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/profile")} // Navigate to Profile Page
             >
               <div className="w-8 h-8 bg-purple-300 rounded-full" />
             </motion.button>
@@ -381,7 +389,7 @@ export default function Home() {
       {/* Goals Section */}
       <section className="p-8 md:p-16 mb-0 bg-white">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-4 w-[85%]">
+          <div className="space-y-4 w-[85%] pl-3">
             <h2 className="text-[36px] font-bold text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>Achieve Your Goals Easily and fulfill your dreams</h2>
             <p className="text-gray-600 font-semibold text-[20px]">The Goal feature in FINOPTIX helps you turn financial dreams into reality. From saving for a house to planning a vacation, it analyzes your spending patterns and guides you towards achieving your financial goals faster and more effectively.
             </p>
@@ -390,9 +398,9 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -right-20 -bottom-20 w-40 h-40 bg-purple-500 rounded-full opacity-20"></div>
             <img
-              src={Goals}             
+              src={Goals}
               alt="Goals Screenshot"
-              className="z-10 rounded-lg overflow-hidden bg-cover bg-center pl-20"
+              className="z-10 rounded-lg overflow-hidden bg-cover bg-center pl-40"
             />
           </div>
         </div>
@@ -418,7 +426,7 @@ export default function Home() {
 
       {/* Features Grid */}
       <section
-        className="relative w-screen min-h-[700px] md:min-h-[900px] flex items-center justify-center p-8 md:p-16 overflow-hidden"
+        className="relative w-screen min-h-[700px] md:min-h-[00px] flex items-center justify-center p-8 md:p-16 overflow-hidden"
       >
         {/* Background Image */}
         <div
@@ -428,18 +436,53 @@ export default function Home() {
         />
 
         {/* Content */}
-        <div className="relative max-w-6xl mx-auto grid md:grid-cols-3 gap-8 p-6 pt-49">
-          <div className="p-6 rounded-lg border border-gray-200">
-            <h3 className="text-[20px] font-normal text-black mb-2">Get Full Analysis</h3>
-            <p className="text-gray-600 text-[17px] font-normal w-[86%]">Get full analysis of your income, expenses and your investments at one place.</p>
+        <div className="relative max-w-6xl mx-auto grid md:grid-cols-3 gap-8 p-6 mb-9 pt-49">
+          <div className="relative flex flex-col items-center">
+            <img
+              src={Pie}
+              alt=""
+              width="95px"
+              height="95px"
+              className="absolute -top-10 z-10"
+            />
+            <div className="p-6 pt-12 bg-[#f5d5f6] rounded-lg border border-gray-200 shadow-[0_0_17px_10px_rgba(0,0,0,0.09)] h-[210px]">
+              <h3 className="text-[20px] font-normal text-black mb-2">Get Full Analysis</h3>
+              <p className="text-gray-600 text-[17px] font-normal w-[86%]">
+                Get full analysis of your income, expenses and your investments at one place.
+              </p>
+            </div>
           </div>
-          <div className="p-6 rounded-lg border border-gray-200">
-            <h3 className="text-[20px] font-normal text-black mb-2">Set Smart Goals</h3>
-            <p className="text-gray-600 text-[17px] font-normal">Set budget goals for your future, get a new car, go to a dream vacay or study in dream collage.</p>
+
+          <div className="relative flex flex-col items-center">
+            <img
+              src={Savings}
+              alt=""
+              width="95px"
+              height="95px"
+              className="absolute -top-10 z-10"
+            />
+            <div className="p-6 pt-12 bg-[#ceddf5] rounded-lg border border-gray-200 shadow-[0_0_17px_10px_rgba(0,0,0,0.09)] h-[210px]">
+              <h3 className="text-[20px] font-normal text-black mb-2">Set Smart Goals</h3>
+              <p className="text-gray-600 text-[17px] font-normal">
+                Set budget goals for your future, get a new car, go to a dream vacay or study in dream collage.
+              </p>
+            </div>
           </div>
-          <div className="p-6 rounded-lg border border-gray-200">
-            <h3 className="text-[20px] font-normal text-black mb-2">Get Hold Over Your Expenses</h3>
-            <p className="text-gray-600 text-[17px] font-normal">Track your cash expenses, bank accounts, credits and cryptos.</p>
+
+          <div className="relative flex flex-col items-center">
+            <img
+              src={Timer}
+              alt=""
+              width="95px"
+              height="95px"
+              className="absolute -top-10 z-10"
+            />
+            <div className="p-6 pt-12 bg-[#C2F5BB] rounded-lg border border-gray-200 shadow-[0_0_17px_10px_rgba(0,0,0,0.09)] h-[210px]">
+              <h3 className="text-[20px] font-normal text-black mb-2">Get Hold Over Your Expenses</h3>
+              <p className="text-gray-600 text-[17px] font-normal">
+                Track your cash expenses, bank accounts, credits and cryptos.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -530,4 +573,3 @@ export default function Home() {
     </div>
   )
 }
-
