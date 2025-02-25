@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const cors = require('cors'); 
 
 const app = express();
 const port = 3002;
@@ -11,6 +12,7 @@ const dbName = "Finoptix"; // Ensure your MongoDB database is named appropriatel
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 let db, profile;
 
@@ -86,36 +88,60 @@ app.get('/profile/:username', async (req, res) => {
 // POST: Add a new user
 app.post('/profile', async (req, res) => {
     try {
-        const newProfile = req.body;
-        const result = await profile.insertOne(newProfile);
-        res.status(201).send(`User added with ID: ${result.insertedId}`);
+      const newProfile = req.body;
+      console.log("POST request received with data:", newProfile);
+      const result = await profile.insertOne(newProfile);
+      console.log("Profile inserted with ID:", result.insertedId);
+      res.status(201).json({ success: true, insertedId: result.insertedId });
     } catch (err) {
-        res.status(500).send("Error adding user: " + err.message);
+      console.error("Error adding profile:", err);
+      res.status(500).json({ success: false, error: err.message });
     }
-});
+  });
 
 
 // PATCH: Partially update a user
+// app.patch('/profile/:username', async (req, res) => {
+//     try {
+//         const { username } = req.params;
+//         const updates = req.body;
+
+//         const result = await profile.updateOne(
+//             { username: username },
+//             { $set: updates } // Apply updates dynamically from request body
+//         );
+
+//         if (result.modifiedCount === 0) {
+//             return res.status(404).json({ success: false, message: "Profile not found or no changes made" });
+//         }
+
+//         res.status(200).json({ success: true, message: "Profile updated successfully" });
+//     } catch (err) {
+//         console.error("Error updating profile:", err);
+//         res.status(500).json({ success: false, error: "Internal Server Error" });
+//     }
+// });
+
+
 app.patch('/profile/:username', async (req, res) => {
     try {
-        const { username } = req.params;
-        const updates = req.body;
-
-        const result = await profile.updateOne(
-            { username: username },
-            { $set: updates } // Apply updates dynamically from request body
-        );
-
-        if (result.modifiedCount === 0) {
-            return res.status(404).json({ success: false, message: "Profile not found or no changes made" });
-        }
-
-        res.status(200).json({ success: true, message: "Profile updated successfully" });
+      const { username } = req.params;
+      const updates = req.body;
+      console.log("PATCH request for:", username, "with data:", updates);
+      const result = await profile.updateOne(
+        { username: username },
+        { $set: updates }
+      );
+      console.log("Update result:", result);
+      if (result.modifiedCount === 0) {
+        return res.status(404).json({ success: false, message: "Profile not found or no changes made" });
+      }
+      res.status(200).json({ success: true, message: "Profile updated successfully" });
     } catch (err) {
-        console.error("Error updating profile:", err);
-        res.status(500).json({ success: false, error: "Internal Server Error" });
+      console.error("Error updating profile:", err);
+      res.status(500).json({ success: false, error: "Internal Server Error" });
     }
-});
+  });
 
 
 app.patch('/users/:userId/premium', async (req, res) => {
