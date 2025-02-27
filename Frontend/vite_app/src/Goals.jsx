@@ -11,11 +11,29 @@ import Flight from "./assets/Flight.png";
 import GraphP from "./assets/GraphP.png";
 import Graph from "./assets/Graph.png";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Components/Loader";
+import React, { useState, useEffect } from 'react';
+
 
 
 
 export default function Goals() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true); // <-- Initialize loading state
+
+
+    
+    useEffect(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000); // Simulated loading delay (2 seconds)
+      }, []);
+    
+      if (loading) {
+        return <Loader />; // Show loader while loading
+      }
+
+
     return (
         <div className="min-h-screen bg-[#E0EBF7]">
 
@@ -196,8 +214,8 @@ export default function Goals() {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="font-semibold">$45,000 / $100,000</p>
-                                <p className="text-[15px] font-bold text-[#0A810A]">45% completed</p>
+                                <p className="font-semibold">₹25,00,000 / ₹40,00,000</p>
+                                <p className="text-[15px] font-bold text-[#0A810A]">62.5% completed</p>
                             </div>
                         </div>
 
@@ -213,7 +231,7 @@ export default function Goals() {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="font-semibold">$15,000 / $30,000</p>
+                                <p className="font-semibold">₹25,000 / ₹50,000</p>
                                 <p className="text-[15px] font-bold text-[#e59308]">50% completed</p>
                             </div>
                         </div>
@@ -230,8 +248,8 @@ export default function Goals() {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="font-semibold">$7,000 / $20,000</p>
-                                <p className="text-[15px] font-bold text-[#015adf]">25% completed</p>
+                                <p className="font-semibold">₹20,000 / ₹1,00,000</p>
+                                <p className="text-[15px] font-bold text-[#015adf]">20% completed</p>
                             </div>
                         </div>
 
@@ -247,8 +265,8 @@ export default function Goals() {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="font-semibold">$125,000 / $1,000,000</p>
-                                <p className="text-[15px] font-bold text-[#7400c1]">12.5% completed</p>
+                                <p className="font-semibold">₹12,50,000 / ₹2,00,00,000</p>
+                                <p className="text-[15px] font-bold text-[#7400c1]">6.25% completed</p>
                             </div>
                         </div>
                     </div>

@@ -200,9 +200,9 @@
 
 
 "use client"
-import React from 'react'
 import { Bell, CircleDollarSign, LineChart, Target, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { motion, px } from "framer-motion"
+import React, { useState, useEffect } from 'react';
 import Logo from "./assets/Logo.png";
 import HomeP from "./assets/HomeP.png";
 import Clock from "./assets/Clock.png";
@@ -217,10 +217,25 @@ import Goals from "./assets/Goals.jpg";
 import Benefits_Section from "./assets/Benefits Section.jpg";
 import Background from "./assets/Background.jpg";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Components/Loader";
+
 
 
 export default function Home() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); // <-- Initialize loading state
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulated loading delay (2 seconds)
+  }, []);
+
+  if (loading) {
+    return <Loader />; // Show loader while loading
+  }
 
   return (
     <div className="min-h-screen bg-[#1a0f2e] text-white">
