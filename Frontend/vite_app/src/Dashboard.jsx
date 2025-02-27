@@ -19,6 +19,10 @@ import {
   CartesianGrid,
 } from "recharts"
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import Loader from "./Components/Loader";
+
+
 
 
 const expenseData = [
@@ -40,6 +44,20 @@ const monthlyData = [
 
 function App() {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(true); // <-- Initialize loading state
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulated loading delay (2 seconds)
+  }, []);
+
+  if (loading) {
+    return <Loader />; // Show loader while loading
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-[#E0EBF7] relative">
       {/* Header */}
@@ -133,14 +151,14 @@ function App() {
             >
               <Bell className="w-5 h-5" />
             </motion.button>
-             <motion.button
-                 className="hover:bg-purple-700 rounded-full"
-                 whileHover={{ scale: 1.1 }}
-                 whileTap={{ scale: 0.95 }}
-                 onClick={() => navigate("/profile")} // Navigate to Profile Page
-               >
-                 <div className="w-8 h-8 bg-purple-300 rounded-full" />
-               </motion.button>
+            <motion.button
+              className="hover:bg-purple-700 rounded-full"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/profile")} // Navigate to Profile Page
+            >
+              <div className="w-8 h-8 bg-purple-300 rounded-full" />
+            </motion.button>
           </div>
         </div>
       </motion.header>
@@ -158,7 +176,7 @@ function App() {
                 <span className="font-medium" style={{ fontSize: "12px", fontWeight: "500", color: "#535252" }}>Updated 2m ago</span>
               </div>
               <div className="text-2xl font-bold text-[26px] text-[#8913f1eb] mt-[12px] mb-[12px]">
-                $84,532.65
+              ₹12,002.78
               </div>
               <div className="flex items-center text-[#00CA2F] text-[16px]">
                 <ArrowUp className="w-4 h-4 mr-1" />
@@ -174,7 +192,7 @@ function App() {
                 <span className="font-semibold" style={{ fontSize: "18px", fontWeight: "500" }}>Monthly Spending</span>
                 <span className="font-medium" style={{ fontSize: "12px", fontWeight: "500", color: "#535252" }}>January 2025</span>
               </div>
-              <div className="text-2xl font-bold text-[26px] text-[#8913f1eb] mt-[12px] mb-[12px]">$3,248.90</div>
+              <div className="text-2xl font-bold text-[26px] text-[#8913f1eb] mt-[12px] mb-[12px]">₹80,000</div>
               <div className="flex items-center text-[#E07577] text-[16px]">
                 <ArrowDown className="w-4 h-4 mr-1" />
                 4.75% from last month
@@ -187,8 +205,8 @@ function App() {
                 <span className="font-medium" style={{ fontSize: "12px", fontWeight: "500", color: "#535252", paddingBottom: "2px" }}>Home Down Payment</span>
               </div>
               <div className="text-2xl font-bold text-[26px] text-[#8913f1eb]">
-                <p>$45,000 /</p>
-                <span className="text-[#535252] text-[22px]">$100,000</span>
+                <p>₹15,00,000 /</p>
+                <span className="text-[#535252] text-[22px]">₹50,00,000</span>
               </div>
               <div className="h-2 bg-purple-100 rounded-full mt-2">
                 <div className="h-full bg-purple-600 rounded-full" style={{ width: "45%" }} />
@@ -267,15 +285,15 @@ function App() {
 
             <div className="flex justify-around items-center">
               <div className="space-y-1">
-                <div className="text-[24px] font-bold">$3,350</div>
+                <div className="text-[24px] font-bold">₹11,350</div>
                 <div className="text-[14px] font-bold text-gray-500">Total Spent</div>
               </div>
               <div className="space-y-1 text-center">
-                <div className="text-[24px] font-bold">$3,900</div>
+                <div className="text-[24px] font-bold">₹16,900</div>
                 <div className="text-[14px] font-bold text-gray-500">Total Budget</div>
               </div>
               <div className="space-y-1 text-right">
-                <div className="text-[24px] font-bold text-[#02BB02]">$550</div>
+                <div className="text-[24px] font-bold text-[#02BB02]">₹5,550</div>
                 <div className="text-[14px] font-bold text-gray-500">Remaining</div>
               </div>
             </div>
@@ -338,10 +356,10 @@ function App() {
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
               <img
-            src={Logo}
-            alt="Finoptix Logo"
-            className="w-[174px] h-[92px] object-contain"
-            />
+                src={Logo}
+                alt="Finoptix Logo"
+                className="w-[174px] h-[92px] object-contain"
+              />
               <div className="flex items-center space-x-4 mt-4 md:mt-0">
                 <span className="text-[20px] mr-4font-outfit font-normal">Follow Us on :</span>
                 <a href="#" className="hover:text-purple-300">

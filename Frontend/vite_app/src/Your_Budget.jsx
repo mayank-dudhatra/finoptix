@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import React, { useState, useEffect } from 'react';
+import Loader from "./Components/Loader";
 import { color, motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import {
@@ -29,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 // Animated counter component
 const Counter = ({ value, duration = 2 }) => {
   const [count, setCount] = useState(0)
+  
 
   useEffect(() => {
     let startTime
@@ -50,7 +52,7 @@ const Counter = ({ value, duration = 2 }) => {
     return () => cancelAnimationFrame(animationFrame)
   }, [value, duration])
 
-  return <span>${count.toLocaleString()}</span>
+  return <span>₹{count.toLocaleString()}</span>
 }
 
 // Progress bar component
@@ -154,6 +156,8 @@ const SpendingCard = ({ title, amount, trend, color, icon: Icon }) => {
 
 export default function Your_Budget() {
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(true); // <-- Initialize loading state
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -165,12 +169,12 @@ export default function Your_Budget() {
   }
 
   const dailyExpenses = [
-    { category: "Fuel & Transport", amount: 100 },
-    { category: "Books", amount: 87 },
-    { category: "Outside Food", amount: 40 },
-    { category: "Fees", amount: 1318 },
-    { category: "Groceries", amount: 128 },
-    { category: "Clothes", amount: 278 },
+    { category: "Fuel & Transport", amount: 500 },
+    { category: "Books", amount: 1500 },
+    { category: "Outside Food", amount: 300 },
+    { category: "Fees", amount: 10000 },
+    { category: "Groceries", amount: 2000 },
+    { category: "Clothes", amount: 5600 },
   ]
 
 
@@ -180,40 +184,40 @@ export default function Your_Budget() {
       icon: <Home className="w-6 h-6" />,
       name: "Housing",
       description: "Rent, Utilities and Insurance",
-      amount: 2500,
-      spent: 1800,
+      amount: 15000,
+      spent: 10000,
       color: "bg-[#5F7FC8]",
     },
     {
       icon: <Car className="w-6 h-6" />,
       name: "Transportation",
       description: "Car Payment, Gas, Maintenance",
-      amount: 600,
-      spent: 450,
+      amount: 6000,
+      spent: 3500,
       color: "bg-[#8C28FF]",
     },
     {
       icon: <Utensils className="w-6 h-6" />,
       name: "Food & Dining",
       description: "Groceries, Restaurants & Delivery",
-      amount: 800,
-      spent: 450,
+      amount: 5000,
+      spent: 2600,
       color: "bg-[#FF3F9C]",
     },
     {
       icon: <Heart className="w-6 h-6" />,
       name: "Healthcare",
       description: "Insurance, Medications & Checkups",
-      amount: 400,
-      spent: 200,
+      amount: 10000,
+      spent: 4000,
       color: "bg-[#0AC213]",
     },
   ]
 
   const summaryData = {
-    totalBudget: 3900,
-    totalSpent: 3350,
-    remaining: 550,
+    totalBudget: 16900,
+    totalSpent: 11350,
+    remaining: 5550,
     monthlyStats: [
       { title: "Monthly Income", amount: 5000, trend: 12, color: "bg-green-100/80", icon: Wallet },
       { title: "Total Expenses", amount: 3350, trend: -8, color: "bg-red-100/80", icon: DollarSign },
@@ -226,6 +230,16 @@ export default function Your_Budget() {
       { name: "Healthcare", percentage: 10, color: "bg-[#0AC213]" },
       { name: "Entertainment", percentage: 15, color: "bg-[#E59308]" },
     ],
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulated loading delay (2 seconds)
+  }, []);
+
+  if (loading) {
+    return <Loader />; // Show loader while loading
   }
 
   return (

@@ -252,7 +252,7 @@
 
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { Bell, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { useNavigate } from "react-router-dom";
@@ -268,6 +268,8 @@ import GraphP from "./assets/GraphP.png";
 import Badge from "./assets/Badge.png";
 import Stats from "./assets/Stats.png";
 import Alert from "./assets/Alert.png";
+import Loader from "./Components/Loader";
+
 
 // Sample data
 const performanceData = [
@@ -288,36 +290,25 @@ const holdings = [
 ]
 
 const assets = [
-  { name: "Stocks", value: 45, amount: "$85,400", color: "#5f1774" },
-  { name: "Bonds", value: 25, amount: "$47,200", color: "#8c28ff" },
-  { name: "Real Estate", value: 15, amount: "$28,300", color: "#5F7FC8" },
-  { name: "Cash", value: 10, amount: "$18,900", color: "#E46262" },
-  { name: "Commodities", value: 5, amount: "$9,400", color: "#9A9A0E" },
+  { name: "Stocks", value: 45, amount: "₹1,20,400", color: "#5f1774" },
+  { name: "Bonds", value: 25, amount: "₹50,900", color: "#8c28ff" },
+  { name: "Real Estate", value: 15, amount: "₹3,90,300", color: "#5F7FC8" },
+  { name: "Cash", value: 10, amount: "₹80,900", color: "#E46262" },
+  { name: "Commodities", value: 5, amount: "₹23,400", color: "#9A9A0E" },
 ]
 
 const InvestmentAnalytics = () => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    // Simulate loading
-    setTimeout(() => setIsLoading(false), 1500)
-  }, [])
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulated loading delay (2 seconds)
+  }, []);
 
-  if (isLoading) {
-    return (
-      <motion.div
-        className="min-h-screen flex items-center justify-center bg-[#f6f9ff]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <motion.div
-          className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-        />
-      </motion.div>
-    )
+  if (loading) {
+    return <Loader />; // Show loader while loading
   }
 
   return (
@@ -342,118 +333,122 @@ const InvestmentAnalytics = () => {
   )
 }
 
-const Header = () => (
+const Header = () => {
+
+  const navigate = useNavigate(); // ✅ Initialize inside the component
+
   
+  return (
   <motion.header
-                      className="bg-[#4B0082] text-white px-6 h-[83px] flex items-center shadow-[0_6px_6px_rgba(0,0,0,0.25)] mb-[35px]"
-                      initial={{ y: -100 }}
-                      animate={{ y: 0 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                    >
-                      <div className="flex items-center justify-between w-full">
-                        <motion.img
-                          src={Logo}
-                          alt="Finoptix Logo"
-                          className="w-[174px] h-[92px] object-contain"
-                          whileHover={{ scale: 1.05 }}
-                          transition={{ duration: 0.2 }}
-                        />
-              
-                        <nav className="hidden md:flex items-center gap-x-[15px] flex-grow justify-center text-[20px] font-outfit font-normal tracking-[0.08em]">
-                          <motion.a
-                            href="/"
-                            className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <img
-                              src={Home}
-                              alt="Finoptix Logo"
-                              className="w-[22px] h-[22px] object-contain pb-1"
-                            />Home
-                          </motion.a>
-              
-                          <motion.a
-                            href="/dashboard"
-                            className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <img
-                              src={Clock}
-                              alt="Finoptix Logo"
-                              className="w-[20px] h-[20px] object-contain pt-0.5"
-                            />Dashboard
-                          </motion.a>
-              
-                          <motion.a
-                            href="/your_budget"
-                            className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <img
-                              src={Wallet}
-                              alt="Finoptix Logo"
-                              className="w-[20px] h-[20px] object-contain pt-0.5"
-                            />Your Budget
-                          </motion.a>
-              
-                          <motion.a
-                            href="/goals"
-                            className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <img
-                              src={Goal}
-                              alt="Finoptix Logo"
-                              className="w-[20px] h-[20px] object-contain pt-0.5 text-[#4B0082]"
-                            />Goals
-                          </motion.a>
-              
-                          <motion.a
-                            href="/analytics"
-                            className="px-4 flex items-center gap-x-[9px] p-2 bg-[#F0A6F4] text-[#4B0082] rounded-md"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <img
-                              src={GraphP}
-                              alt="Finoptix Logo"
-                              className="w-[20px] h-[20px] object-contain pt-0.5"
-                            />Investment Analytics
-                          </motion.a>
-                        </nav>
-              
-                        <div className="flex items-center gap-x-[15px] relative left-[-30px]">
-                          <motion.button
-                            className="hover:bg-purple-700 rounded-full pl-[15px]"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <Bell className="w-5 h-5" />
-                          </motion.button>
-                          <motion.button
-                            className="hover:bg-purple-700 rounded-full"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => 
-                              navigate("/profile")} // Navigate to Profile Page
-                          >
-                            <div className="w-8 h-8 bg-purple-300 rounded-full" />
-                          </motion.button>
-                        </div>
-                      </div>
-                    </motion.header>
-)
+    className="bg-[#4B0082] text-white px-6 h-[83px] flex items-center shadow-[0_6px_6px_rgba(0,0,0,0.25)] mb-[35px]"
+    initial={{ y: -100 }}
+    animate={{ y: 0 }}
+    transition={{ duration: 0.5, ease: "easeOut" }}
+  >
+    <div className="flex items-center justify-between w-full">
+      <motion.img
+        src={Logo}
+        alt="Finoptix Logo"
+        className="w-[174px] h-[92px] object-contain"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.2 }}
+      />
+
+      <nav className="hidden md:flex items-center gap-x-[15px] flex-grow justify-center text-[20px] font-outfit font-normal tracking-[0.08em]">
+        <motion.a
+          href="/"
+          className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img
+            src={Home}
+            alt="Finoptix Logo"
+            className="w-[22px] h-[22px] object-contain pb-1"
+          />Home
+        </motion.a>
+
+        <motion.a
+          href="/dashboard"
+          className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img
+            src={Clock}
+            alt="Finoptix Logo"
+            className="w-[20px] h-[20px] object-contain pt-0.5"
+          />Dashboard
+        </motion.a>
+
+        <motion.a
+          href="/your_budget"
+          className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img
+            src={Wallet}
+            alt="Finoptix Logo"
+            className="w-[20px] h-[20px] object-contain pt-0.5"
+          />Your Budget
+        </motion.a>
+
+        <motion.a
+          href="/goals"
+          className="px-4 flex items-center gap-x-[9px] py-2 rounded-md hover:bg-purple-700"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img
+            src={Goal}
+            alt="Finoptix Logo"
+            className="w-[20px] h-[20px] object-contain pt-0.5 text-[#4B0082]"
+          />Goals
+        </motion.a>
+
+        <motion.a
+          href="/analytics"
+          className="px-4 flex items-center gap-x-[9px] p-2 bg-[#F0A6F4] text-[#4B0082] rounded-md"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img
+            src={GraphP}
+            alt="Finoptix Logo"
+            className="w-[20px] h-[20px] object-contain pt-0.5"
+          />Investment Analytics
+        </motion.a>
+      </nav>
+
+      <div className="flex items-center gap-x-[15px] relative left-[-30px]">
+        <motion.button
+          className="hover:bg-purple-700 rounded-full pl-[15px]"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Bell className="w-5 h-5" />
+        </motion.button>
+        <motion.button
+          className="hover:bg-purple-700 rounded-full"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/profile")} // Navigate to Profile Page
+        >
+          <div className="w-8 h-8 bg-purple-300 rounded-full" />
+        </motion.button>
+      </div>
+    </div>
+  </motion.header>
+  );
+};
 
 
 const KPICards = () => {
   const kpis = [
-    { title: "Total Portfolio", value: "$189,200", change: "+3.2% today", color: "bg-[#C3D9F7]", img: ClockP  },
-    { title: "Total Return", value: "$45,800", change: "+22.5% all time", color: "bg-[#E9E1F6]", img: GraphP  },
-    { title: "Dividends", value: "$2,450", change: "Last 12 months", color: "bg-[#F0E0EB]", img: GoalP  },
+    { title: "Total Portfolio", value: "₹1,57,23,60", change: "+3.2% today", color: "bg-[#C3D9F7]", img: ClockP },
+    { title: "Total Return", value: "₹38,01,40", change: "+22.5% all time", color: "bg-[#E9E1F6]", img: GraphP },
+    { title: "Dividends", value: "₹2,03,35", change: "Last 12 months", color: "bg-[#F0E0EB]", img: GoalP },
   ]
 
   return (
@@ -461,16 +456,16 @@ const KPICards = () => {
       {kpis.map((kpi, index) => (
         <motion.div
           key={index}
-          className={`p-6 rounded-xl shadow-lg ${kpi.color}`}           
+          className={`p-6 rounded-xl shadow-lg ${kpi.color}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.2, duration: 0.5 }}
         >
           <p className="text-[16px] font-medium text-gray-600">{kpi.title}</p>
-           <div className="flex items-center justify-between gap-x-2">
-           <h3 className="text-2xl font-semibold mt-1">{kpi.value}</h3>
-           <img src={kpi.img} alt="Portfolio Icon" className="w-6 h-6 mr-2" />
-           </div>
+          <div className="flex items-center justify-between gap-x-2">
+            <h3 className="text-2xl font-semibold mt-1">{kpi.value}</h3>
+            <img src={kpi.img} alt="Portfolio Icon" className="w-6 h-6 mr-2" />
+          </div>
           <p className="text-[16px] font-semibold text-green-600 mt-2">{kpi.change}</p>
         </motion.div>
       ))}
@@ -522,8 +517,8 @@ const PerformanceChart = () => (
 
     {/* Percentage Display */}
     <div className="flex justify-between items-center mb-6 mt-6">
-    <div className="text-[32px] font-semibold text-gray-900 mb-1">+45.8%</div>
-    <div className="text-md text-green-800 font-semibold mb-0">+2.5% today</div>
+      <div className="text-[32px] font-semibold text-gray-900 mb-1">+45.8%</div>
+      <div className="text-md text-green-800 font-semibold mb-0">+2.5% today</div>
     </div>
 
     {/* Chart Section */}
@@ -586,7 +581,7 @@ const AssetAllocation = () => (
             <span className="text-gray-600">{asset.amount}</span>
           </div>
           <div className="h-2 bg-gray-200 rounded">
-            <div className="h-full rounded" style={{ width: `${asset.value}%`, backgroundColor: asset.color }}></div>
+            <div className="h-full rounded" style={{ width: `₹{asset.value}%`, backgroundColor: asset.color }}></div>
           </div>
         </motion.div>
       ))}
@@ -620,8 +615,8 @@ const RiskAnalysis = () => {
             transition={{ delay: index * 0.2, duration: 0.5 }}
           >
             <div className="flex items-center">
-            <img src={metric.img} alt="Portfolio Icon" className="w-4 h-4 mr-2" />
-            <p className="text-sm text-gray-600">{metric.title}</p>
+              <img src={metric.img} alt="Portfolio Icon" className="w-4 h-4 mr-2" />
+              <p className="text-sm text-gray-600">{metric.title}</p>
             </div>
             <p className="text-xl font-semibold mt-1">{metric.value}</p>
           </motion.div>
@@ -679,13 +674,13 @@ const PortfolioHoldings = () => (
               transition={{ duration: 0.5 }}
             >
               <div className="flex flex-col">
-              <td className="pt-2">{holding.asset}</td>
-              <td className="pb-3 pt-0 text-[14px] font-medium text-[#424242]">{holding.discription}</td>
+                <td className="pt-2">{holding.asset}</td>
+                <td className="pb-3 pt-0 text-[14px] font-medium text-[#424242]">{holding.discription}</td>
               </div>
               <td>{holding.type}</td>
               <td>{holding.quantity}</td>
-              <td>${holding.price.toFixed(2)}</td>
-              <td>${holding.value.toFixed(2)}</td>
+              <td>₹{holding.price.toFixed(2)}</td>
+              <td>₹{holding.value.toFixed(2)}</td>
               <td className="text-green-600">{holding.return}</td>
             </motion.tr>
           ))}
@@ -696,83 +691,83 @@ const PortfolioHoldings = () => (
 )
 
 const Footer = () => (
-    <footer className="bg-[#4B0082] text-white mt-7 h-[466px]">
-                  <div className="container mx-auto px-6 py-8">
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:justify-between ml-18">
-                          <div className="font-outfit font-normal tracking-[0.08em]">
-                              <h3 className="font-semibold text-[22px] mb-4">Our Features</h3>
-                              <ul className="space-y-2 text-[14px]">
-                                  <li>Get Started as a Fresher</li>
-                                  <li>How To Earn More</li>
-                                  <li>Write Blogs Or Read</li>
-                                  <li>Learn To Invest</li>
-                                  <li>Manage Your Budget</li>
-                                  <li>Personalize Future Plans For Your Future</li>
-                              </ul>
-                          </div>
-  
-  
-                          <div className="font-outfit font-normal tracking-[0.08em]">
-                              <h3 className="font-semibold text-[22px] mb-4">Our Potential Partners</h3>
-                              <ul className="space-y-2 text-[14px]">
-                                  <li>Banks</li>
-                                  <li>Tech Companies</li>
-                                  <li>Insurance Companies</li>
-                                  <li>Expert Traders</li>
-                              </ul>
-                          </div>
-  
-  
-                          <div className="font-outfit font-normal tracking-[0.08em]">
-                              <h3 className="font-semibold text-[22px] mb-4">Help</h3>
-                              <ul className="space-y-2 text-[14px]">
-                                  <li>Privacy Policy</li>
-                                  <li>FAQ</li>
-                                  <li>How to get Started</li>
-                                  <li>Video Tutorials</li>
-                                  <li>Copyright</li>
-                              </ul>
-                          </div>
-  
-  
-                          <div className="font-outfit font-normal tracking-[0.08em]">
-                              <h3 className="font-semibold text-[22px] mb-4">About Us</h3>
-                              <ul className="space-y-2 text-[14px]">
-                                  <li>Location</li>
-                                  <li>Security</li>
-                                  <li>Our Plans</li>
-                                  <li>Our Vision</li>
-                              </ul>
-                          </div>
-                      </div>
-  
-                      <div className="mt-5 pt-5 border-t border-purple-700">
-                          <div className="flex flex-col md:flex-row justify-between items-center">
-                              <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
-                              <img
-                                  src={Logo}
-                                  alt="Finoptix Logo"
-                                  className="w-[174px] h-[92px] object-contain"
-                              />
-                              <div className="flex items-center space-x-4 mt-4 md:mt-0">
-                                  <span className="text-[20px] mr-4font-outfit font-normal">Follow Us on :</span>
-                                  <a href="#" className="hover:text-purple-300">
-                                      <Instagram className="w-5 h-5" />
-                                  </a>
-                                  <a href="#" className="hover:text-purple-300">
-                                      <Youtube className="w-5 h-5" />
-                                  </a>
-                                  <a href="#" className="hover:text-purple-300">
-                                      <Twitter className="w-5 h-5" />
-                                  </a>
-                                  <a href="#" className="hover:text-purple-300">
-                                      <Facebook className="w-5 h-5" />
-                                  </a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </footer>
+  <footer className="bg-[#4B0082] text-white mt-7 h-[466px]">
+    <div className="container mx-auto px-6 py-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:justify-between ml-18">
+        <div className="font-outfit font-normal tracking-[0.08em]">
+          <h3 className="font-semibold text-[22px] mb-4">Our Features</h3>
+          <ul className="space-y-2 text-[14px]">
+            <li>Get Started as a Fresher</li>
+            <li>How To Earn More</li>
+            <li>Write Blogs Or Read</li>
+            <li>Learn To Invest</li>
+            <li>Manage Your Budget</li>
+            <li>Personalize Future Plans For Your Future</li>
+          </ul>
+        </div>
+
+
+        <div className="font-outfit font-normal tracking-[0.08em]">
+          <h3 className="font-semibold text-[22px] mb-4">Our Potential Partners</h3>
+          <ul className="space-y-2 text-[14px]">
+            <li>Banks</li>
+            <li>Tech Companies</li>
+            <li>Insurance Companies</li>
+            <li>Expert Traders</li>
+          </ul>
+        </div>
+
+
+        <div className="font-outfit font-normal tracking-[0.08em]">
+          <h3 className="font-semibold text-[22px] mb-4">Help</h3>
+          <ul className="space-y-2 text-[14px]">
+            <li>Privacy Policy</li>
+            <li>FAQ</li>
+            <li>How to get Started</li>
+            <li>Video Tutorials</li>
+            <li>Copyright</li>
+          </ul>
+        </div>
+
+
+        <div className="font-outfit font-normal tracking-[0.08em]">
+          <h3 className="font-semibold text-[22px] mb-4">About Us</h3>
+          <ul className="space-y-2 text-[14px]">
+            <li>Location</li>
+            <li>Security</li>
+            <li>Our Plans</li>
+            <li>Our Vision</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-5 pt-5 border-t border-purple-700">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="text-[12px] font-medium">© 2015-2025 FINOPTIX All Rights Reserved</div>
+          <img
+            src={Logo}
+            alt="Finoptix Logo"
+            className="w-[174px] h-[92px] object-contain"
+          />
+          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+            <span className="text-[20px] mr-4font-outfit font-normal">Follow Us on :</span>
+            <a href="#" className="hover:text-purple-300">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-purple-300">
+              <Youtube className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-purple-300">
+              <Twitter className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-purple-300">
+              <Facebook className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 )
 
 export default InvestmentAnalytics
