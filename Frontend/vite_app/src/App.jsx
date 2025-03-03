@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import NotFound from "./Components/NotFound";
 import Landing from "./Landing";
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/*" element={<NotFound />} /> {/* Catch-all 404 route */}
         <Route path="/landing" element={<Landing />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
   );

@@ -6,26 +6,42 @@ import Logo from './assets/Logo.png';
 import { useNavigate } from 'react-router-dom';
 
 
-const SignIn = () => {
+const SignUp = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate(); // React Router hook for navigation
 
 
-    const handleSignIn = (e) => {
+    const handleSignUp = (e) => {
         e.preventDefault();
-        // Add sign in logic here
-        console.log('Signing in with:', email, password);
+        // Add sign up logic here
+        console.log('Signing up with:', name, email, password);
     };
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#DCEFFF] to-[#B0D5FF]">
-            <div className="flex rounded-lg shadow-lg overflow-hidden w-[650px] h-[500px] max-w-3xl">
-                {/* Left Side - Sign In Form */}
-                <div className="w-1/2 bg-gray-50 p-4 flex flex-col">
-                    <h1 style={{ fontFamily: "Outfit" }} className="text-[30px] font-bold text-center mb-5">Sign In</h1>
+            <div className="flex rounded-lg shadow-lg overflow-hidden w-[650px] h-[530px] max-w-3xl">
+                {/* Left Side - Purple Gradient */}
+                <div className="w-1/2 bg-gradient-to-b from-[#6A17B2] via-[#4B1B7E] to-[#1D68D9] flex flex-col items-center justify-center text-white">
+                    <div className="mb-8">
+                        <img src={Logo} alt="Finoptix Logo" className="ml-5 w-[190px] h-[90px]" />
+                    </div>
 
-                    {/* Social Media Sign In */}
+                    <h2 className="text-[33px] font-bold mb-6">Welcome Back!</h2>
+                    <p className="text-center text-[15px] mb-10 w-[80%]">To keep connected with us please login with your personal info</p>
+
+                    <button onClick={() => navigate('/signin')}
+                        className="bg-white text-[#003A91] hover:bg-gray-100 transition-colors rounded-2xl py-1 px-2 w-[100px] text-[17px] font-mediumhover:bg-gray-100">
+                        Sign In
+                    </button>
+                </div>
+
+                {/* Right Side - Sign Up Form */}
+                <div className="w-1/2 bg-gray-50 p-4 flex flex-col">
+                    <h1 style={{ fontFamily: "Outfit" }} className="text-[30px] font-bold text-center mb-4">Create Account</h1>
+
+                    {/* Social Media Sign Up */}
                     <div className="flex justify-center space-x-4 mb-4">
                         <button className="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow">
                             <img src={FacebookIcon} alt="Facebook" className="w-[30px] h-[30px]" />
@@ -38,13 +54,23 @@ const SignIn = () => {
                         </button>
                     </div>
 
-                    <div className="text-center text-[13px] text-black-500 mb-4">OR</div>
+                    <div className="text-center text-[13px] text-black-500 mb-4">or use your email for registration</div>
 
-                    {/* Email and Password Form */}
+                    {/* Registration Form */}
+                    <form onSubmit={handleSignUp} className="flex flex-col items-center space-y-4">
+                        <div className="flex flex-col">
+                            <label htmlFor="name" className="mb-1 text-[14px] font-medium">Name :</label>
+                            <input
+                                type="text"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Enter your Name"
+                                className="p-2 rounded bg-blue-50 border-none focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder:text-[13px] placeholder:text-gray-500"
+                                required
+                            />
+                        </div>
 
-
-                    <form onSubmit={handleSignIn} className="flex flex-col items-center space-y-4">
-                        {/* Email Input */}
                         <div className="flex flex-col">
                             <label htmlFor="email" className="mb-1 text-[14px] font-medium">E-mail :</label>
                             <input
@@ -58,7 +84,6 @@ const SignIn = () => {
                             />
                         </div>
 
-                        {/* Password Input */}
                         <div className="flex flex-col">
                             <label htmlFor="password" className="mb-1 text-[14px] font-medium">Password :</label>
                             <input
@@ -72,39 +97,18 @@ const SignIn = () => {
                             />
                         </div>
 
-                        {/* Forgot Password Link */}
-                        <div className="text-center">
-                            <a href="#" className="text-[14px] text-blue-600 hover:underline">Forgot your password?</a>
-                        </div>
-
-                        {/* Sign-In Button */}
                         <button
                             type="submit"
                             className="bg-blue-700 text-white rounded-2xl py-1 px-2 w-[110px] text-[16px] font-medium hover:bg-blue-800 transition-colors"
                         >
-                            Sign in
+                            Sign Up
                         </button>
+
                     </form>
-
-                </div>
-
-                {/* Right Side - Purple Gradient */}
-                <div className="w-1/2 bg-gradient-to-b from-[#6A17B2] via-[#4B1B7E] to-[#1D68D9] p-8 flex flex-col items-center justify-center text-white">
-                    <div className="mb-9">
-                        <img src={Logo} alt="Finoptix Logo" className="ml-5 w-[190px] h-[90px]" />
-                    </div>
-
-                    <h2 className="text-[35px] font-bold mb-6">Hello, User!</h2>
-                    <p className="text-center text-[15px] mb-10">Enter your personal details and start the journey with us</p>
-
-                    <button onClick={() => navigate('/signup')}
-                        className="bg-white text-[#003A91] hover:bg-gray-100 transition-colors rounded-2xl py-1 px-2 w-[100px] text-[17px] font-mediumhover:bg-gray-100">
-                        Sign Up
-                    </button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default SignIn;
+export default SignUp;

@@ -356,7 +356,7 @@ export default function Home() {
               Financial</span> Slavery
           </h1>
           <p style={{ fontFamily: 'Pacifico', color: '#ffffff', fontSize: '24px', paddingBottom: '15px' }}>Your financial freedom awaits</p>
-          <button className="bg-purple-700 text-white px-6 py-2 rounded-full">Join Now</button>
+          <button  onClick={() => navigate('/landing')} className="bg-purple-700 text-white px-6 py-2 rounded-full">Join Now</button>
         </div>
         <div className="relative">
           <div className="absolute right-10 top-0">
