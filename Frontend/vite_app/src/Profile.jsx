@@ -515,7 +515,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { Twitter, Linkedin, Github, Globe, Check, Settings, Share2, Download, Upload, Plus, Bell, Youtube, Facebook, Instagram } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, NavLink } from "react-router-dom"
 import Logo from "./assets/Logo.png"
 import Home from "./assets/Home.png"
 import Clock from "./assets/Clock.png"
@@ -909,9 +909,18 @@ export default function Profile() {
             <motion.button className="hover:bg-purple-700 rounded-full pl-[15px]" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Bell className="w-5 h-5" />
             </motion.button>
-            <motion.button className="hover:bg-purple-700 rounded-full" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => navigate("/profile")}>
+            {/* <motion.button className="hover:bg-purple-700 rounded-full" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => navigate("/profile")}>
               <div className="w-8 h-8 bg-purple-300 rounded-full" />
-            </motion.button>
+            </motion.button> */}
+            <NavLink to="/profile">
+              <motion.button
+                className="hover:bg-purple-700 rounded-full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="w-8 h-8 bg-purple-300 rounded-full" />
+              </motion.button>
+            </NavLink>
           </div>
         </div>
       </motion.header>
