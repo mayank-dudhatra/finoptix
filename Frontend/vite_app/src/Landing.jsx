@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Logo from './assets/Logo.png'
 import { useNavigate } from 'react-router-dom';
+import Loader from "./Components/Loader";
+
 
 
 function Landing() {
     const navigate = useNavigate(); // React Router hook for navigation
+    const [loading, setLoading] = useState(true); // <-- Initialize loading state
+    
+
+
+    useEffect(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000); // Simulated loading delay (2 seconds)
+      }, []);
+    
+      if (loading) {
+        return <Loader />; // Show loader while loading
+      }
 
     return (
         <div className='bg-gradient-to-r from-[#DCEFFF] to-[#B0D5FF] flex justify-center items-center h-screen'>

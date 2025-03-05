@@ -216,7 +216,7 @@ import Spendings from "./assets/Spendings.jpg";
 import Goals from "./assets/Goals.jpg";
 import Benefits_Section from "./assets/Benefits Section.jpg";
 import Background from "./assets/Background.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink  } from "react-router-dom";
 import Loader from "./Components/Loader";
 
 
@@ -331,14 +331,16 @@ export default function Home() {
             >
               <Bell className="w-5 h-5" />
             </motion.button>
-            <motion.button
-              className="hover:bg-purple-700 rounded-full"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/profile")} // Navigate to Profile Page
-            >
-              <div className="w-8 h-8 bg-purple-300 rounded-full" />
-            </motion.button>
+            
+            <NavLink to="/profile">
+              <motion.button
+                className="hover:bg-purple-700 rounded-full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="w-8 h-8 bg-purple-300 rounded-full" />
+              </motion.button>
+            </NavLink>
           </div>
         </div>
       </motion.header>
@@ -356,7 +358,13 @@ export default function Home() {
               Financial</span> Slavery
           </h1>
           <p style={{ fontFamily: 'Pacifico', color: '#ffffff', fontSize: '24px', paddingBottom: '15px' }}>Your financial freedom awaits</p>
-          <button  onClick={() => navigate('/landing')} className="bg-purple-700 text-white px-6 py-2 rounded-full">Join Now</button>
+          <button
+            onClick={() => navigate('/landing')}
+            className="bg-purple-700 text-white px-6 py-2 rounded-full transition-all duration-300 
+               hover:bg-purple-800 hover:shadow-lg hover:scale-105 active:scale-95"
+          >
+            Join Now
+          </button>
         </div>
         <div className="relative">
           <div className="absolute right-10 top-0">
